@@ -1,0 +1,19 @@
+# Configuração do gitleaks — varredura de segredos no CI.
+# Estende as regras padrão e allowlista falsos positivos conhecidos.
+title = "SaaS Foundation — gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Falsos positivos conhecidos"
+paths = [
+  # .env.example contém apenas nomes de variáveis, sem valores.
+  '''\.env\.example$''',
+  # Notebooks estão no .gitignore; a regra evita falso-positivo caso um scan
+  # alcance o histórico.
+  '''.*\.ipynb$''',
+  # Guias de deploy: apenas comandos de EXEMPLO com placeholders. Os tokens
+  # reais vivem nos secrets do Supabase e do provedor de deploy.
+  '''.*DEPLOY\.md$''',
+]

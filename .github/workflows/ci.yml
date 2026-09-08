@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # TC-05: baseline congelado em 55 warnings — warning novo quebra o CI.
+      # Ao zerar um lote, baixar o número aqui (ratchet).
+      - name: Lint
+        run: npm run lint -- --max-warnings=55
+
+      # SG-06: informativo por ora — não bloqueia o pipeline; endurecer depois
+      - name: Audit de dependências
+        run: npm audit --audit-level=high
+        continue-on-error: true
+
+      - name: Unit tests
+        run: npm run test:run
+
+      - name: Build (typecheck + bundle)
+        run: npm run build
+
+  # Varredura de segredos hardcoded no histórico incremental. Impede o vazamento
+  # de chaves de API commitadas. Roda incrementalmente (commits do push/PR), então
+  # não re-sinaliza o segredo histórico já rotacionado; a allowlist de .gitleaks.toml
+  # cobre placeholders (.env.example) e notebooks (*.ipynb, já removidos).
+  secret-scan:
+    runs-on: ubuntu-latest
+    # gitleaks-action precisa ler os commits do PR pela API do GitHub no evento
+    # pull_request; sem estes escopos o token padrão retorna 403.
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # histórico disponível para o diff incremental do gitleaks
+
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_CONFIG: .gitleaks.toml

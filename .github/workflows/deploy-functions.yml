@@ -1,0 +1,50 @@
+# MT-01 — Deploy automático das Edge Functions (elimina o drift código×produção
+# que acumulava filas OP-06/OP-09/HUB-04 de deploy manual esquecido).
+#
+# Dispara quando código de function muda na main, ou manualmente (workflow_dispatch)
+# para o primeiro deploy consolidado / re-deploys pontuais.
+#
+# Secrets necessários (Settings → Secrets and variables → Actions):
+#   SUPABASE_ACCESS_TOKEN — token pessoal do Supabase (https://supabase.com/dashboard/account/tokens)
+#   SUPABASE_PROJECT_REF  — ref do projeto (Settings → General do projeto)
+name: Deploy Edge Functions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Guarda: falha com mensagem clara se os secrets não estiverem configurados
+      # (sem isso o CLI quebra com erro críptico de autenticação).
+      - name: Verificar secrets obrigatórios
+        run: |
+          missing=0
+          if [ -z "${{ secrets.SUPABASE_ACCESS_TOKEN }}" ]; then
+            echo "::error::Secret SUPABASE_ACCESS_TOKEN não configurado. Gere em https://supabase.com/dashboard/account/tokens e cadastre em Settings → Secrets and variables → Actions."
+            missing=1
+          fi
+          if [ -z "${{ secrets.SUPABASE_PROJECT_REF }}" ]; then
+            echo "::error::Secret SUPABASE_PROJECT_REF não configurado. É o ref do projeto Supabase (Dashboard → Project Settings → General)."
+            missing=1
+          fi
+          exit $missing
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      # Deploya todas as functions — são 16 e o deploy é rápido; deploy total
+      # evita a classe de erro "esqueci uma" que motivou este workflow.
+      - name: Deploy all functions
+        run: supabase functions deploy --project-ref "$SUPABASE_PROJECT_REF"
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}

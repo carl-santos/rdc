@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans;
+  }
+
+  /* Indicador de foco visível para navegação por teclado (WCAG 2.4.7) */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary rounded;
+  }
+
+  /* Imagens: não quebram layout se ainda não carregaram */
+  img {
+    @apply max-w-full;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(246,247,248,0.8) 100%);
+}

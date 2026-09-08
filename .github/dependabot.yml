@@ -1,0 +1,21 @@
+# SG-06 — Atualização automática de dependências (segurança + higiene)
+# Minors/patches agrupados num PR semanal para não inundar; majors abrem PR próprio
+# e devem ser tratados como tarefa planejada (MT-09).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: America/Sao_Paulo
+    open-pull-requests-limit: 5
+    groups:
+      minor-e-patch:
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
