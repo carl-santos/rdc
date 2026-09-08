@@ -99,12 +99,33 @@ npm run dev
 
 ### 5. Primeiro administrador da plataforma
 
-O signup cria um `tenant_admin`. Para promover alguém a `platform_admin`, rode
+Cadastre-se primeiro pelo app, em `/cadastro`. O trigger `handle_new_user` cria
+o tenant, o perfil `tenant_admin` e a linha de cota do mês. Só depois promova,
 no SQL Editor:
 
 ```sql
-update public.profiles set role = 'platform_admin' where email = 'voce@exemplo.com';
+select public.bootstrap_platform_admin('voce@exemplo.com');
 ```
+
+A função confirma o e-mail e promove o perfil, e só age enquanto não existir
+nenhum `platform_admin` — a partir do segundo, use o painel da plataforma.
+
+Um `update` direto em `profiles.role` funciona pelo SQL Editor, mas é recusado
+para qualquer usuário logado pela API: o trigger `protect_profile_columns`
+impede que alguém eleve o próprio papel ou troque de tenant.
+
+### 5b. A parede de seleção de plano
+
+Um tenant recém-criado nasce sem `plano_id`, e o `DashboardLayout` abre o
+`PlanSelectionModal` até que ele escolha um. Em desenvolvimento, para pular:
+
+```sql
+update public.tenants
+set plano_id = (select id from public.plans where nome = 'Free')
+where plano_id is null;
+```
+
+Usuários `platform_admin` não passam por essa parede.
 
 ### 6. Edge Functions
 
