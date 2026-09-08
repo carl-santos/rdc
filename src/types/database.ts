@@ -1,9 +1,11 @@
-// Tipos do banco.
+// Tipos do banco. Nao edite a mao.
 //
-// Gerado por `npm run types:gen` (supabase gen types typescript --linked).
-// Ate aqui foi mantido a mao para refletir supabase/migrations. Depois de
-// criar o projeto no Supabase e rodar `supabase link`, regere este arquivo em
-// vez de edita-lo.
+// A secao Tables foi gerada a partir do schema real do projeto Supabase, e
+// confere coluna por coluna com ele.
+//
+// Para regerar depois de uma migration nova: `npm run types:gen`, que exige
+// `supabase login` e `supabase link` (e Docker, porque o CLI roda o
+// postgres-meta em container).
 
 export type Json =
   | string
@@ -24,7 +26,6 @@ export type Database = {
       audit_logs: {
         Row: {
           id: string
-          created_at: string
           user_id: string | null
           tenant_id: string | null
           role: string | null
@@ -33,15 +34,15 @@ export type Database = {
           category: string | null
           resource_type: string
           resource_id: string | null
-          severity: 'info' | 'warning' | 'critical' | null
-          status: 'success' | 'error' | null
+          severity: string | null
+          status: string | null
           ip_address: string | null
           user_agent: string | null
           metadata: Json
+          created_at: string
         }
         Insert: {
           id?: string
-          created_at?: string
           user_id?: string | null
           tenant_id?: string | null
           role?: string | null
@@ -50,15 +51,15 @@ export type Database = {
           category?: string | null
           resource_type: string
           resource_id?: string | null
-          severity?: 'info' | 'warning' | 'critical' | null
-          status?: 'success' | 'error' | null
+          severity?: string | null
+          status?: string | null
           ip_address?: string | null
           user_agent?: string | null
           metadata?: Json
+          created_at?: string
         }
         Update: {
           id?: string
-          created_at?: string
           user_id?: string | null
           tenant_id?: string | null
           role?: string | null
@@ -67,113 +68,16 @@ export type Database = {
           category?: string | null
           resource_type?: string
           resource_id?: string | null
-          severity?: 'info' | 'warning' | 'critical' | null
-          status?: 'success' | 'error' | null
+          severity?: string | null
+          status?: string | null
           ip_address?: string | null
           user_agent?: string | null
           metadata?: Json
-        }
-        Relationships: []
-      }
-      faq_articles: {
-        Row: {
-          id: string
-          title: string
-          content: string
-          category: string
-          subcategory: string | null
-          tags: string[] | null
-          is_published: boolean
-          helpful_yes: number
-          helpful_no: number
-          created_by: string | null
-          created_at: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          id?: string
-          title: string
-          content: string
-          category: string
-          subcategory?: string | null
-          tags?: string[] | null
-          is_published?: boolean
-          helpful_yes?: number
-          helpful_no?: number
-          created_by?: string | null
-          created_at?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          id?: string
-          title?: string
-          content?: string
-          category?: string
-          subcategory?: string | null
-          tags?: string[] | null
-          is_published?: boolean
-          helpful_yes?: number
-          helpful_no?: number
-          created_by?: string | null
-          created_at?: string | null
-          updated_at?: string | null
+          created_at?: string
         }
         Relationships: [
           {
-            foreignKeyName: "faq_articles_created_by_fkey"
-            columns: ["created_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      clients: {
-        Row: {
-          created_at: string | null
-          email: string | null
-          foto_url: string | null
-          id: string
-          nome: string
-          client_user_id: string | null
-          telefone: string | null
-          tenant_id: string
-          portal_activated_at: string | null
-          consent_given_at: string | null
-          anonymized_at: string | null
-          deleted_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          email?: string | null
-          foto_url?: string | null
-          id?: string
-          nome: string
-          client_user_id?: string | null
-          telefone?: string | null
-          tenant_id: string
-          portal_activated_at?: string | null
-          consent_given_at?: string | null
-          anonymized_at?: string | null
-          deleted_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          email?: string | null
-          foto_url?: string | null
-          id?: string
-          nome?: string
-          client_user_id?: string | null
-          telefone?: string | null
-          tenant_id?: string
-          portal_activated_at?: string | null
-          consent_given_at?: string | null
-          anonymized_at?: string | null
-          deleted_at?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "clients_tenant_id_fkey"
+            foreignKeyName: "audit_logs_tenant_id_fkey"
             columns: ["tenant_id"]
             isOneToOne: false
             referencedRelation: "tenants"
@@ -181,32 +85,67 @@ export type Database = {
           },
         ]
       }
-      plans: {
+      billing_invoices: {
         Row: {
-          created_at: string | null
           id: string
-          limite_clientes: number
-          limite_operacoes_mes: number
-          nome: string
-          preco_mensal: number
+          tenant_id: string
+          asaas_payment_id: string
+          asaas_subscription_id: string | null
+          status: string
+          value: number
+          due_date: string
+          payment_date: string | null
+          billing_type: string | null
+          invoice_url: string | null
+          bank_slip_url: string | null
+          pix_qrcode_encoded: string | null
+          description: string | null
+          created_at: string
+          updated_at: string
         }
         Insert: {
-          created_at?: string | null
           id?: string
-          limite_clientes: number
-          limite_operacoes_mes: number
-          nome: string
-          preco_mensal: number
+          tenant_id: string
+          asaas_payment_id: string
+          asaas_subscription_id?: string | null
+          status?: string
+          value: number
+          due_date: string
+          payment_date?: string | null
+          billing_type?: string | null
+          invoice_url?: string | null
+          bank_slip_url?: string | null
+          pix_qrcode_encoded?: string | null
+          description?: string | null
+          created_at?: string
+          updated_at?: string
         }
         Update: {
-          created_at?: string | null
           id?: string
-          limite_clientes?: number
-          limite_operacoes_mes?: number
-          nome?: string
-          preco_mensal?: number
+          tenant_id?: string
+          asaas_payment_id?: string
+          asaas_subscription_id?: string | null
+          status?: string
+          value?: number
+          due_date?: string
+          payment_date?: string | null
+          billing_type?: string | null
+          invoice_url?: string | null
+          bank_slip_url?: string | null
+          pix_qrcode_encoded?: string | null
+          description?: string | null
+          created_at?: string
+          updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "billing_invoices_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chatbot_flows: {
         Row: {
@@ -260,70 +199,284 @@ export type Database = {
           created_at?: string | null
           updated_at?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "chatbot_flows_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chatbot_flows_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "chatbot_flows"
+            referencedColumns: ["id"]
+          },
+        ]
       }
-      suggestion_meta: {
+      clients: {
         Row: {
-          ticket_id:   string
-          status:      'unread' | 'reviewing' | 'planned' | 'implemented' | 'rejected'
-          admin_notes: string | null
-          reviewed_by: string | null
-          reviewed_at: string | null
-          created_at:  string | null
-          updated_at:  string | null
+          id: string
+          tenant_id: string
+          nome: string
+          email: string | null
+          telefone: string | null
+          foto_url: string | null
+          client_user_id: string | null
+          portal_activated_at: string | null
+          consent_given_at: string | null
+          created_at: string
+          anonymized_at: string | null
+          anonymized_by: string | null
+          deleted_at: string | null
         }
         Insert: {
-          ticket_id:    string
-          status?:      'unread' | 'reviewing' | 'planned' | 'implemented' | 'rejected'
-          admin_notes?: string | null
-          reviewed_by?: string | null
-          reviewed_at?: string | null
-          created_at?:  string | null
-          updated_at?:  string | null
+          id?: string
+          tenant_id: string
+          nome: string
+          email?: string | null
+          telefone?: string | null
+          foto_url?: string | null
+          client_user_id?: string | null
+          portal_activated_at?: string | null
+          consent_given_at?: string | null
+          created_at?: string
+          anonymized_at?: string | null
+          anonymized_by?: string | null
+          deleted_at?: string | null
         }
         Update: {
-          ticket_id?:   string
-          status?:      'unread' | 'reviewing' | 'planned' | 'implemented' | 'rejected'
-          admin_notes?: string | null
-          reviewed_by?: string | null
-          reviewed_at?: string | null
-          created_at?:  string | null
-          updated_at?:  string | null
+          id?: string
+          tenant_id?: string
+          nome?: string
+          email?: string | null
+          telefone?: string | null
+          foto_url?: string | null
+          client_user_id?: string | null
+          portal_activated_at?: string | null
+          consent_given_at?: string | null
+          created_at?: string
+          anonymized_at?: string | null
+          anonymized_by?: string | null
+          deleted_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_anonymized_by_fkey"
+            columns: ["anonymized_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clients_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      faq_articles: {
+        Row: {
+          id: string
+          title: string
+          content: string
+          category: string
+          subcategory: string | null
+          tags: string[] | null
+          is_published: boolean
+          helpful_yes: number
+          helpful_no: number
+          created_by: string | null
+          created_at: string | null
+          updated_at: string | null
+          search_vector: unknown | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          content: string
+          category: string
+          subcategory?: string | null
+          tags?: string[] | null
+          is_published?: boolean
+          helpful_yes?: number
+          helpful_no?: number
+          created_by?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+          search_vector?: unknown | null
+        }
+        Update: {
+          id?: string
+          title?: string
+          content?: string
+          category?: string
+          subcategory?: string | null
+          tags?: string[] | null
+          is_published?: boolean
+          helpful_yes?: number
+          helpful_no?: number
+          created_by?: string | null
+          created_at?: string | null
+          updated_at?: string | null
+          search_vector?: unknown | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "faq_articles_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          id: string
+          user_id: string
+          tenant_id: string | null
+          type: string
+          title: string
+          message: string
+          link: string | null
+          read: boolean
+          reference_id: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          tenant_id?: string | null
+          type: string
+          title: string
+          message: string
+          link?: string | null
+          read?: boolean
+          reference_id?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          tenant_id?: string | null
+          type?: string
+          title?: string
+          message?: string
+          link?: string | null
+          read?: boolean
+          reference_id?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          id: string
+          nome: string
+          preco_mensal: number
+          limite_clientes: number
+          limite_operacoes_mes: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          nome: string
+          preco_mensal: number
+          limite_clientes: number
+          limite_operacoes_mes: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          nome?: string
+          preco_mensal?: number
+          limite_clientes?: number
+          limite_operacoes_mes?: number
+          created_at?: string
         }
         Relationships: []
       }
       profiles: {
         Row: {
-          cargo: string | null
-          created_at: string | null
-          email: string
           id: string
-          nome: string
-          client_id: string | null
-          role: Database["public"]["Enums"]["user_role"] | null
           tenant_id: string | null
+          client_id: string | null
+          nome: string
+          email: string
+          cargo: string | null
+          role: Database["public"]["Enums"]["user_role"]
+          created_at: string
+          consents_revoked: Json | null
+          consents_revoked_at: string | null
+          consents_revoked_by: string | null
+          anonymized_at: string | null
+          anonymized_by: string | null
         }
         Insert: {
-          cargo?: string | null
-          created_at?: string | null
-          email: string
           id: string
-          nome: string
-          client_id?: string | null
-          role?: Database["public"]["Enums"]["user_role"] | null
           tenant_id?: string | null
+          client_id?: string | null
+          nome: string
+          email: string
+          cargo?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          created_at?: string
+          consents_revoked?: Json | null
+          consents_revoked_at?: string | null
+          consents_revoked_by?: string | null
+          anonymized_at?: string | null
+          anonymized_by?: string | null
         }
         Update: {
-          cargo?: string | null
-          created_at?: string | null
-          email?: string
           id?: string
-          nome?: string
-          client_id?: string | null
-          role?: Database["public"]["Enums"]["user_role"] | null
           tenant_id?: string | null
+          client_id?: string | null
+          nome?: string
+          email?: string
+          cargo?: string | null
+          role?: Database["public"]["Enums"]["user_role"]
+          created_at?: string
+          consents_revoked?: Json | null
+          consents_revoked_at?: string | null
+          consents_revoked_by?: string | null
+          anonymized_at?: string | null
+          anonymized_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "profiles_anonymized_by_fkey"
+            columns: ["anonymized_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_consents_revoked_by_fkey"
+            columns: ["consents_revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "profiles_tenant_id_fkey"
             columns: ["tenant_id"]
@@ -333,68 +486,138 @@ export type Database = {
           },
         ]
       }
-      support_tickets: {
+      suggestion_meta: {
         Row: {
-          blocks_sales: boolean | null
-          category: string
-          confidence_score: number | null
+          ticket_id: string
+          status: string
+          admin_notes: string | null
+          reviewed_by: string | null
+          reviewed_at: string | null
           created_at: string | null
-          description: string
-          id: string
-          priority: string
-          read: boolean | null
-          resolution_type: string | null
-          status: Database["public"]["Enums"]["ticket_status"] | null
-          subcategory: string | null
-          subject: string
-          tags: string[] | null
-          tenant_id: string
-          ticket_number: string
-          unread_messages_count: number | null
           updated_at: string | null
-          user_id: string
         }
         Insert: {
-          blocks_sales?: boolean | null
-          category: string
-          confidence_score?: number | null
+          ticket_id: string
+          status?: string
+          admin_notes?: string | null
+          reviewed_by?: string | null
+          reviewed_at?: string | null
           created_at?: string | null
-          description: string
-          id?: string
-          priority: string
-          read?: boolean | null
-          resolution_type?: string | null
-          status?: Database["public"]["Enums"]["ticket_status"] | null
-          subcategory?: string | null
-          subject: string
-          tags?: string[] | null
-          tenant_id: string
-          ticket_number: string
-          unread_messages_count?: number | null
           updated_at?: string | null
-          user_id: string
         }
         Update: {
-          blocks_sales?: boolean | null
-          category?: string
-          confidence_score?: number | null
+          ticket_id?: string
+          status?: string
+          admin_notes?: string | null
+          reviewed_by?: string | null
+          reviewed_at?: string | null
           created_at?: string | null
-          description?: string
-          id?: string
-          priority?: string
-          read?: boolean | null
-          resolution_type?: string | null
-          status?: Database["public"]["Enums"]["ticket_status"] | null
-          subcategory?: string | null
-          subject?: string
-          tags?: string[] | null
-          tenant_id?: string
-          ticket_number?: string
-          unread_messages_count?: number | null
           updated_at?: string | null
-          user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "suggestion_meta_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "suggestion_meta_ticket_id_fkey"
+            columns: ["ticket_id"]
+            isOneToOne: false
+            referencedRelation: "support_tickets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          id: string
+          tenant_id: string
+          user_id: string
+          ticket_number: string
+          subject: string
+          description: string
+          category: string
+          subcategory: string | null
+          priority: string
+          status: Database["public"]["Enums"]["ticket_status"]
+          tags: string[] | null
+          confidence_score: number | null
+          resolution_type: string | null
+          blocks_sales: boolean | null
+          read: boolean | null
+          unread_messages_count: number | null
+          created_at: string
+          updated_at: string
+          lgpd_type: string | null
+          lgpd_status: string | null
+          lgpd_resolved_at: string | null
+          lgpd_processed_by: string | null
+          lgpd_resolution_notes: string | null
+          lgpd_export_path: string | null
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          user_id: string
+          ticket_number: string
+          subject: string
+          description: string
+          category: string
+          subcategory?: string | null
+          priority?: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          tags?: string[] | null
+          confidence_score?: number | null
+          resolution_type?: string | null
+          blocks_sales?: boolean | null
+          read?: boolean | null
+          unread_messages_count?: number | null
+          created_at?: string
+          updated_at?: string
+          lgpd_type?: string | null
+          lgpd_status?: string | null
+          lgpd_resolved_at?: string | null
+          lgpd_processed_by?: string | null
+          lgpd_resolution_notes?: string | null
+          lgpd_export_path?: string | null
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          user_id?: string
+          ticket_number?: string
+          subject?: string
+          description?: string
+          category?: string
+          subcategory?: string | null
+          priority?: string
+          status?: Database["public"]["Enums"]["ticket_status"]
+          tags?: string[] | null
+          confidence_score?: number | null
+          resolution_type?: string | null
+          blocks_sales?: boolean | null
+          read?: boolean | null
+          unread_messages_count?: number | null
+          created_at?: string
+          updated_at?: string
+          lgpd_type?: string | null
+          lgpd_status?: string | null
+          lgpd_resolved_at?: string | null
+          lgpd_processed_by?: string | null
+          lgpd_resolution_notes?: string | null
+          lgpd_export_path?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "support_tickets_lgpd_processed_by_fkey"
+            columns: ["lgpd_processed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "support_tickets_tenant_id_fkey"
             columns: ["tenant_id"]
@@ -402,78 +625,71 @@ export type Database = {
             referencedRelation: "tenants"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "support_tickets_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
         ]
       }
       tenants: {
         Row: {
-          cep: string | null
-          cidade: string | null
-          complemento: string | null
-          cpf_cnpj: string | null
-          created_at: string | null
-          segmento: string | null
-          estado: string | null
           id: string
-          logo_url: string | null
-          logradouro: string | null
           nome_fantasia: string
-          numero: string | null
-          plano_id: string | null
           razao_social: string | null
-          status: Database["public"]["Enums"]["tenant_status"] | null
-          asaas_customer_id: string | null
-          asaas_subscription_id: string | null
+          cpf_cnpj: string | null
+          segmento: string | null
           telefone: string | null
           whatsapp_atendimento: string | null
+          logo_url: string | null
+          cep: string | null
+          logradouro: string | null
+          numero: string | null
+          complemento: string | null
+          cidade: string | null
+          estado: string | null
+          plano_id: string | null
+          status: Database["public"]["Enums"]["tenant_status"]
+          asaas_customer_id: string | null
+          asaas_subscription_id: string | null
+          created_at: string
         }
         Insert: {
-          cep?: string | null
-          cidade?: string | null
-          complemento?: string | null
-          cpf_cnpj?: string | null
-          created_at?: string | null
-          segmento?: string | null
-          estado?: string | null
           id?: string
-          logo_url?: string | null
-          logradouro?: string | null
           nome_fantasia: string
-          numero?: string | null
-          plano_id?: string | null
           razao_social?: string | null
-          status?: Database["public"]["Enums"]["tenant_status"] | null
-          asaas_customer_id?: string | null
-          asaas_subscription_id?: string | null
+          cpf_cnpj?: string | null
+          segmento?: string | null
           telefone?: string | null
           whatsapp_atendimento?: string | null
+          logo_url?: string | null
+          cep?: string | null
+          logradouro?: string | null
+          numero?: string | null
+          complemento?: string | null
+          cidade?: string | null
+          estado?: string | null
+          plano_id?: string | null
+          status?: Database["public"]["Enums"]["tenant_status"]
+          asaas_customer_id?: string | null
+          asaas_subscription_id?: string | null
+          created_at?: string
         }
         Update: {
-          cep?: string | null
-          cidade?: string | null
-          complemento?: string | null
-          cpf_cnpj?: string | null
-          created_at?: string | null
-          segmento?: string | null
-          estado?: string | null
           id?: string
-          logo_url?: string | null
-          logradouro?: string | null
           nome_fantasia?: string
-          numero?: string | null
-          plano_id?: string | null
           razao_social?: string | null
-          status?: Database["public"]["Enums"]["tenant_status"] | null
-          asaas_customer_id?: string | null
-          asaas_subscription_id?: string | null
+          cpf_cnpj?: string | null
+          segmento?: string | null
           telefone?: string | null
           whatsapp_atendimento?: string | null
+          logo_url?: string | null
+          cep?: string | null
+          logradouro?: string | null
+          numero?: string | null
+          complemento?: string | null
+          cidade?: string | null
+          estado?: string | null
+          plano_id?: string | null
+          status?: Database["public"]["Enums"]["tenant_status"]
+          asaas_customer_id?: string | null
+          asaas_subscription_id?: string | null
+          created_at?: string
         }
         Relationships: [
           {
@@ -487,37 +703,37 @@ export type Database = {
       }
       ticket_attachments: {
         Row: {
-          created_at: string | null
-          file_name: string
-          file_size: number | null
-          file_type: string | null
-          file_url: string
           id: string
-          message_id: string | null
           ticket_id: string
+          message_id: string | null
           uploaded_by: string | null
+          file_name: string
+          file_url: string
+          file_type: string | null
+          file_size: number | null
+          created_at: string
         }
         Insert: {
-          created_at?: string | null
-          file_name: string
-          file_size?: number | null
-          file_type?: string | null
-          file_url: string
           id?: string
-          message_id?: string | null
           ticket_id: string
+          message_id?: string | null
           uploaded_by?: string | null
+          file_name: string
+          file_url: string
+          file_type?: string | null
+          file_size?: number | null
+          created_at?: string
         }
         Update: {
-          created_at?: string | null
-          file_name?: string
-          file_size?: number | null
-          file_type?: string | null
-          file_url?: string
           id?: string
-          message_id?: string | null
           ticket_id?: string
+          message_id?: string | null
           uploaded_by?: string | null
+          file_name?: string
+          file_url?: string
+          file_type?: string | null
+          file_size?: number | null
+          created_at?: string
         }
         Relationships: [
           {
@@ -534,48 +750,34 @@ export type Database = {
             referencedRelation: "support_tickets"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "ticket_attachments_uploaded_by_fkey"
-            columns: ["uploaded_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
         ]
       }
       ticket_messages: {
         Row: {
-          created_at: string | null
           id: string
-          message: string
+          ticket_id: string
           sender_id: string | null
           sender_type: string
-          ticket_id: string
+          message: string
+          created_at: string
         }
         Insert: {
-          created_at?: string | null
           id?: string
-          message: string
+          ticket_id: string
           sender_id?: string | null
           sender_type: string
-          ticket_id: string
+          message: string
+          created_at?: string
         }
         Update: {
-          created_at?: string | null
           id?: string
-          message?: string
+          ticket_id?: string
           sender_id?: string | null
           sender_type?: string
-          ticket_id?: string
+          message?: string
+          created_at?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "ticket_messages_sender_id_fkey"
-            columns: ["sender_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "ticket_messages_ticket_id_fkey"
             columns: ["ticket_id"]
@@ -588,33 +790,33 @@ export type Database = {
       usage_tracking: {
         Row: {
           id: string
+          tenant_id: string
           mes_referencia: string
-          clientes_cadastrados: number | null
-          operacoes_utilizadas: number | null
+          clientes_cadastrados: number
+          operacoes_utilizadas: number
           creditos_extra: number
           creditos_extra_utilizados: number
-          tenant_id: string
-          updated_at: string | null
+          updated_at: string
         }
         Insert: {
           id?: string
+          tenant_id: string
           mes_referencia: string
-          clientes_cadastrados?: number | null
-          operacoes_utilizadas?: number | null
+          clientes_cadastrados?: number
+          operacoes_utilizadas?: number
           creditos_extra?: number
           creditos_extra_utilizados?: number
-          tenant_id: string
-          updated_at?: string | null
+          updated_at?: string
         }
         Update: {
           id?: string
+          tenant_id?: string
           mes_referencia?: string
-          clientes_cadastrados?: number | null
-          operacoes_utilizadas?: number | null
+          clientes_cadastrados?: number
+          operacoes_utilizadas?: number
           creditos_extra?: number
           creditos_extra_utilizados?: number
-          tenant_id?: string
-          updated_at?: string | null
+          updated_at?: string
         }
         Relationships: [
           {

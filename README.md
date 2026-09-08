@@ -71,11 +71,14 @@ supabase db push
 A migration `20260101000000_baseline.sql` cria o schema inteiro. Um banco limpo
 é suficiente — não há dependência de tabela criada pelo painel.
 
-Em seguida regere os tipos, que hoje estão mantidos à mão:
+Depois de cada migration nova, regere os tipos:
 
 ```bash
 npm run types:gen
 ```
+
+Esse comando exige `supabase link` e Docker, porque o CLI roda o postgres-meta
+em container.
 
 ### 3. Variáveis de ambiente
 
@@ -136,7 +139,7 @@ src/
     client/       Portal do cliente final
   utils/          Cliente Supabase, storage, validações
 supabase/
-  migrations/     Baseline + módulos (FAQ, chatbot, rate limits)
+  migrations/     Baseline + módulos (LGPD, FAQ, chatbot, RLS de tickets)
   functions/      Edge Functions
   tests/          Testes de isolamento RLS
 ```
@@ -152,7 +155,8 @@ neutro. Chame `increment_operation_usage(tenant_id)` no ponto em que o seu
 produto consome uma unidade, e ajuste o rótulo na interface.
 
 **Marca.** Procure por `SaaS Foundation` em `index.html`, `Header`, `Footer` e
-`Home`, e por `SEU_PROJECT_REF` em `vercel.json`.
+`Home`. Ao trocar de projeto Supabase, atualize também o ref em `vercel.json`,
+que aparece no `report-uri` e no `Report-To` da CSP.
 
 ## Segurança
 
@@ -160,6 +164,7 @@ produto consome uma unidade, e ajuste o rótulo na interface.
   um projeto real e, versionado, faria um `db push` de qualquer clone acertar o
   banco errado.
 - Os buckets são privados; o acesso é sempre por URL assinada.
-- O CI roda gitleaks. Configure `SEU_PROJECT_REF` no `vercel.json` antes do
-  primeiro deploy, ou os relatórios de violação de CSP não chegam a lugar
-  nenhum.
+- O CI roda gitleaks.
+- O `vercel.json` aponta os relatórios de violação de CSP para a Edge Function
+  `csp-report` do projeto. Se o ref não bater com o projeto em uso, os
+  relatórios se perdem em silêncio — a política continua valendo.
