@@ -114,18 +114,24 @@ Um `update` direto em `profiles.role` funciona pelo SQL Editor, mas é recusado
 para qualquer usuário logado pela API: o trigger `protect_profile_columns`
 impede que alguém eleve o próprio papel ou troque de tenant.
 
-### 5b. A parede de seleção de plano
+### 5b. Plano de entrada
 
-Um tenant recém-criado nasce sem `plano_id`, e o `DashboardLayout` abre o
-`PlanSelectionModal` até que ele escolha um. Em desenvolvimento, para pular:
+O tenant criado no cadastro entra automaticamente no plano marcado com
+`is_default` — na instalação limpa, o Free. Para mudar o tier de entrada:
 
 ```sql
-update public.tenants
-set plano_id = (select id from public.plans where nome = 'Free')
-where plano_id is null;
+update public.plans set is_default = (nome = 'Pro');
 ```
 
-Usuários `platform_admin` não passam por essa parede.
+Um índice único garante no máximo um padrão por vez. Para voltar a exigir
+escolha explícita no primeiro acesso, desligue todos:
+
+```sql
+update public.plans set is_default = false;
+```
+
+Aí o tenant nasce sem plano e o `DashboardLayout` abre o `PlanSelectionModal`
+até que ele escolha. Usuários `platform_admin` não passam por essa parede.
 
 ### 6. Edge Functions
 

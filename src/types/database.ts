@@ -390,6 +390,7 @@ export type Database = {
           limite_clientes: number
           limite_operacoes_mes: number
           created_at: string
+          is_default: boolean
         }
         Insert: {
           id?: string
@@ -398,6 +399,7 @@ export type Database = {
           limite_clientes: number
           limite_operacoes_mes: number
           created_at?: string
+          is_default?: boolean
         }
         Update: {
           id?: string
@@ -406,6 +408,7 @@ export type Database = {
           limite_clientes?: number
           limite_operacoes_mes?: number
           created_at?: string
+          is_default?: boolean
         }
         Relationships: []
       }
