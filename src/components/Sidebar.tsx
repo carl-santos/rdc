@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTerminology } from '../hooks/useTerminology';
+import { BRAND } from '../brand';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -13,8 +14,13 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     const { user, profile, signOut } = useAuth();
     const terminology = useTerminology();
 
-    const menuItems = [
+    const productItems = [
         { icon: 'dashboard', label: 'Início', path: '/dashboard' },
+        { icon: 'psychology', label: 'Representantes', path: '/representantes' },
+        { icon: 'history', label: 'Histórico', path: '/historico' },
+    ];
+
+    const menuItems = [
         { icon: 'groups', label: terminology.clients, path: '/clientes' },
         { icon: 'diversity_3', label: 'Equipes', path: '/equipes' },
         { icon: 'settings', label: 'Configurações', path: '/configuracoes' },
@@ -71,9 +77,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             >
                 <div className="p-6 border-b border-slate-100 dark:border-slate-900 flex items-center gap-3">
                     <div className="bg-primary size-8 rounded-lg flex items-center justify-center text-white">
-                        <span className="material-symbols-outlined text-xl">vital_signs</span>
+                        <span className="material-symbols-outlined text-xl">psychology</span>
                     </div>
-                    <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h2>
+                    <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{BRAND.name}</h2>
 
                     {/* Close button — mobile only */}
                     <button
@@ -86,6 +92,28 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
                 </div>
 
                 <nav className="flex-1 min-h-0 overflow-y-auto p-4 flex flex-col gap-2 hide-scrollbar">
+                    {productItems.map((item) => {
+                        const active = item.path === '/representantes'
+                            ? location.pathname.startsWith('/representantes')
+                            : location.pathname === item.path;
+                        return (
+                            <Link
+                                key={item.path}
+                                to={item.path}
+                                onClick={handleLinkClick}
+                                className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${active
+                                    ? 'bg-primary/10 text-primary font-semibold'
+                                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900'
+                                    }`}
+                            >
+                                <span className="material-symbols-outlined">{item.icon}</span>
+                                <span className="text-sm">{item.label}</span>
+                            </Link>
+                        );
+                    })}
+
+                    <div className="my-2 h-px bg-slate-100 dark:bg-slate-900 mx-2" />
+
                     {menuItems.map((item) => (
                         <Link
                             key={item.path}

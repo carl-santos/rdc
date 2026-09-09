@@ -150,10 +150,10 @@ export default function ChatbotWidget() {
         const initial = active?.initialUserMessage?.trim();
         if (initial) {
             // O usuário já escreveu a dúvida ao abrir o chamado — respondemos direto, sem re-perguntar.
-            appendMessage(botMsg('Olá! Sou o assistente de suporte da SaaS Foundation. Já recebi a sua dúvida — deixa eu ajudar:'));
+            appendMessage(botMsg('Olá! Sou o assistente de suporte da RDC. Já recebi a sua dúvida — deixa eu ajudar:'));
             void answerInitialQuestion(initial);
         } else {
-            appendMessage(botMsg('Olá! Sou o assistente de suporte da SaaS Foundation. Como posso ajudar você hoje?'));
+            appendMessage(botMsg('Olá! Sou o assistente de suporte da RDC. Como posso ajudar você hoje?'));
         }
     };
 

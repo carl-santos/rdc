@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../utils/supabase';
 
-export type AuditCategory = 'auth' | 'operation' | 'data_access' | 'system' | 'billing' | 'error';
+export type AuditCategory = 'auth' | 'operation' | 'data_access' | 'system' | 'billing' | 'error' | 'cdr';
 export type AuditSeverity = 'info' | 'warning' | 'critical';
 
 export interface AuditEventInput {

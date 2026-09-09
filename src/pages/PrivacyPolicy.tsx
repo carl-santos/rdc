@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
                                 Compliance LGPD
                             </p>
                             <p className="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 font-medium">
-                                A SaaS Foundation criptografa os dados em repouso (AES-256) e em trânsito (TLS 1.3), com isolamento por linha (RLS) e imagens biométricas armazenadas em buckets privados.
+                                A RDC criptografa os dados em repouso (AES-256) e em trânsito (TLS 1.3), com isolamento por linha (RLS) e imagens biométricas armazenadas em buckets privados.
                             </p>
                         </div>
                     </div>
@@ -81,10 +81,10 @@ const PrivacyPolicy = () => {
                             </h2>
                             <div className="space-y-6 text-slate-600 dark:text-slate-300 leading-relaxed text-lg font-medium">
                                 <p>
-                                    Bem-vindo à SaaS Foundation. A sua privacidade e a segurança dos seus dados, bem como dos dados dos seus clientes, são a nossa prioridade absoluta. Esta Política de Privacidade descreve como coletamos, usamos, processamos e protegemos as informações em nossa plataforma SaaS.
+                                    Bem-vindo à RDC. A sua privacidade e a segurança dos seus dados, bem como dos dados dos seus clientes, são a nossa prioridade absoluta. Esta Política de Privacidade descreve como coletamos, usamos, processamos e protegemos as informações em nossa plataforma SaaS.
                                 </p>
                                 <p className="p-8 bg-slate-50 dark:bg-slate-800/50 rounded-[2rem] border-l-8 border-primary italic">
-                                    "Ao utilizar o motor SaaS Foundation, você confia à nossa empresa informações de saúde sensíveis. Estamos comprometidos em manter essa confiança através de uma governança de dados ética e transparente."
+                                    "Ao utilizar o motor RDC, você confia à nossa empresa informações de saúde sensíveis. Estamos comprometidos em manter essa confiança através de uma governança de dados ética e transparente."
                                 </p>
                                 <p>
                                     Atuamos em total conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD), garantindo que cada interação com nossa inteligência artificial de operação corporal seja processada sob os mais rígidos protocolos de segurança cibernética.
@@ -125,7 +125,7 @@ const PrivacyPolicy = () => {
                                 
                                 <div className="relative z-10 space-y-4 text-sm leading-relaxed text-slate-300 font-medium">
                                     <p>
-                                        A plataforma <strong className="font-bold text-white">SaaS Foundation</strong> poderá coletar e armazenar imagens enviadas voluntariamente pelos usuários durante a utilização dos serviços.
+                                        A plataforma <strong className="font-bold text-white">RDC</strong> poderá coletar e armazenar imagens enviadas voluntariamente pelos usuários durante a utilização dos serviços.
                                     </p>
                                     
                                     <p>Essas imagens são utilizadas exclusivamente para:</p>
@@ -140,7 +140,7 @@ const PrivacyPolicy = () => {
                                     </p>
                                     
                                     <p>
-                                        A SaaS Foundation adota medidas de segurança adequadas para proteger essas informações contra acesso não autorizado, perda ou uso indevido.
+                                        A RDC adota medidas de segurança adequadas para proteger essas informações contra acesso não autorizado, perda ou uso indevido.
                                     </p>
                                     
                                     <p>
@@ -263,7 +263,7 @@ const PrivacyPolicy = () => {
                     </div>
 
                     <footer className="mt-24 pt-12 border-t border-slate-100 dark:border-slate-800 text-center relative z-10">
-                        <p className="text-slate-400 text-[9px] font-black uppercase tracking-[0.4em] mb-4">© 2026 SaaS Foundation Tecnologia em Saúde Ltda. Todos os direitos reservados.</p>
+                        <p className="text-slate-400 text-[9px] font-black uppercase tracking-[0.4em] mb-4">© 2026 RDC Tecnologia em Saúde Ltda. Todos os direitos reservados.</p>
                         <div className="flex justify-center gap-8 text-[10px] font-black uppercase tracking-widest text-slate-300">
                             <a href="#" className="hover:text-primary transition-colors">Termos de Uso</a>
                             <a href="#" className="hover:text-primary transition-colors">Segurança</a>

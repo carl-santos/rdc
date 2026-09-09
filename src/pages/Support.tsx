@@ -99,15 +99,15 @@ const Support = () => {
 
     // ── Helpers ───────────────────────────────────────────────────────────────
 
-    // Suporte oficial SaaS Foundation (profissional → plataforma): número fixo da equipe SaaS Foundation.
+    // Suporte oficial RDC (profissional → plataforma): número fixo da equipe RDC.
     const handleOpenWhatsApp = () => {
         const phone = '5542988021788';
-        const message = "Olá! Preciso de suporte no SaaS Foundation";
+        const message = "Olá! Preciso de suporte no RDC";
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
     };
 
     const handleSendEmail = () => {
-        window.location.href = `mailto:suporte@exemplo.com.br?subject=Suporte SaaS Foundation&body=Olá,%0A%0APreciso de ajuda com:%0A%0A`;
+        window.location.href = `mailto:suporte@exemplo.com.br?subject=Suporte RDC&body=Olá,%0A%0APreciso de ajuda com:%0A%0A`;
     };
 
     const [pendingFiles, setPendingFiles] = useState<PendingFile[]>([]);

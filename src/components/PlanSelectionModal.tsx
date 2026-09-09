@@ -154,7 +154,7 @@ const PlanSelectionModal = () => {
                         Entre em contato com o responsável para liberar o acesso.
                     </p>
                     <p className="mt-8 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                        SaaS Foundation · Plataforma B2B
+                        RDC · Plataforma B2B
                     </p>
                 </div>
             </div>
@@ -259,7 +259,7 @@ const PlanSelectionModal = () => {
                         <div className="bg-primary size-6 rounded-lg flex items-center justify-center">
                             <span className="material-symbols-outlined text-sm text-slate-950">vital_signs</span>
                         </div>
-                        <span className="text-white font-black text-sm tracking-tight">SaaS Foundation</span>
+                        <span className="text-white font-black text-sm tracking-tight">RDC</span>
                     </div>
                     <h1 className="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter italic mb-2">
                         Bem-vindo, {firstName}!

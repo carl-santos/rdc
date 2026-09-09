@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { supabase } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { PlanCardSkeleton } from '../components/Skeleton';
+import { BRAND } from '../brand';
 
 interface Plan {
     id: string;
@@ -15,34 +16,34 @@ interface Plan {
 
 const recursos = [
     {
-        icone: 'apartment',
-        titulo: 'Multi-tenant de verdade',
-        texto: 'Cada assinante enxerga apenas os proprios dados. O isolamento e garantido por Row Level Security no banco, nao por checagem no frontend.',
+        icone: 'psychology',
+        titulo: 'Representante Digital Cognitivo',
+        texto: 'Crie um RDC com persona, instruções éticas e nível de autonomia — supervisionado, assistido ou autônomo.',
     },
     {
-        icone: 'shield_person',
-        titulo: 'Tres perfis de acesso',
-        texto: 'Administrador da plataforma, equipe do assinante e cliente final, cada um com seu portal e suas rotas protegidas.',
+        icone: 'menu_book',
+        titulo: 'Base de conhecimento',
+        texto: 'Envie documentos autorizados. O representante responde apenas com o que você treinou, sem inventar fatos.',
     },
     {
-        icone: 'payments',
-        titulo: 'Assinatura e creditos',
-        texto: 'Planos com limite mensal, compra de creditos avulsos, webhook de pagamento e bloqueio automatico quando a assinatura vence.',
+        icone: 'chat',
+        titulo: 'Chat inteligente',
+        texto: 'Converse com o representante via Claude. Cada consulta consome a cota do plano e fica registrada.',
     },
     {
-        icone: 'support_agent',
-        titulo: 'Suporte com triagem por IA',
-        texto: 'Chamados com classificacao automatica, deteccao de duplicidade, base de conhecimento com busca full-text e chatbot por fluxos.',
+        icone: 'present_to_all',
+        titulo: 'Modos apresentação, aula e reunião',
+        texto: 'O mesmo conhecimento, com instruções específicas para palestras, atividades educacionais e reuniões digitais.',
     },
     {
         icone: 'policy',
-        titulo: 'LGPD operacional',
-        texto: 'Central de solicitacoes para acesso, portabilidade, revogacao de consentimento e exclusao, com exports em bucket privado.',
+        titulo: 'LGPD e auditoria',
+        texto: 'Herdados da fundação: solicitações LGPD, isolamento por tenant com RLS e trilha de auditoria das consultas ao RDC.',
     },
     {
-        icone: 'manage_search',
-        titulo: 'Auditoria',
-        texto: 'Registro de acessos e acoes sensiveis com categoria, severidade, IP e user-agent, com retencao configuravel.',
+        icone: 'admin_panel_settings',
+        titulo: 'Painel administrativo',
+        texto: 'Cadastro, perfis, planos, suporte e gestão da plataforma — prontos para o protótipo do TCC.',
     },
 ];
 
@@ -112,15 +113,13 @@ const Home = () => {
                 <section className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
                     <div className="max-w-3xl">
                         <span className="inline-block text-xs font-bold uppercase tracking-widest text-primary mb-4">
-                            Base de aplicacao SaaS
+                            {BRAND.platform} · {BRAND.fullName}
                         </span>
                         <h1 className="text-4xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-                            O trabalho chato do SaaS, ja resolvido.
+                            {BRAND.tagline}
                         </h1>
                         <p className="mt-6 text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Multi-tenant com RLS, tres perfis de acesso, cobranca recorrente, suporte,
-                            auditoria e LGPD. Comece pelo que diferencia o seu produto, nao pela
-                            quinta vez que voce escreve uma tela de login.
+                            {BRAND.description} Protótipo funcional para o Trabalho de Conclusão de Curso.
                         </p>
                         <div className="mt-10 flex flex-wrap items-center gap-4">
                             <Link
@@ -143,11 +142,10 @@ const Home = () => {
                 <section id="como-funciona" className="border-y border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/40">
                     <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
                         <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-                            O que ja vem pronto
+                            O que o protótipo entrega
                         </h2>
                         <p className="mt-4 text-slate-600 dark:text-slate-300 max-w-2xl">
-                            Cada item abaixo esta implementado, com politica de acesso no banco e
-                            interface correspondente.
+                            Autenticação, isolamento e governança vêm da fundação SaaS. O produto é o Representante Digital Cognitivo.
                         </p>
 
                         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -169,17 +167,15 @@ const Home = () => {
                     <div className="grid lg:grid-cols-2 gap-14 items-start">
                         <div>
                             <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-                                Seguranca que nao depende do frontend
+                                Conhecimento controlado, não genérico
                             </h2>
                             <p className="mt-5 text-slate-600 dark:text-slate-300 leading-relaxed">
-                                O isolamento entre assinantes vive no banco. Toda tabela tem RLS
-                                habilitado, os helpers de policy usam SECURITY DEFINER com search_path
-                                fixo, e os buckets de arquivo sao privados, acessados por URL assinada.
+                                O RDC responde a partir dos documentos que você autoriza. A autonomia é configurável:
+                                o representante pode apenas sugerir, responder com ressalvas ou atuar de forma mais direta.
                             </p>
                             <p className="mt-4 text-slate-600 dark:text-slate-300 leading-relaxed">
-                                Um usuario nao consegue elevar o proprio papel nem trocar de tenant:
-                                um trigger em profiles bloqueia essas colunas para quem nao e
-                                administrador.
+                                Fora do escopo deste TCC: clonagem de voz, avatares 3D, integração automática com
+                                videoconferência e participação autônoma em reuniões.
                             </p>
                         </div>
                         <div className="bg-slate-900 dark:bg-black rounded-2xl p-7 border border-slate-800">
@@ -239,13 +235,12 @@ const Home = () => {
                 {/* Sobre */}
                 <section id="sobre" className="max-w-7xl mx-auto px-6 lg:px-10 py-20">
                     <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-                        Sobre esta base
+                        Sobre o {BRAND.name}
                     </h2>
                     <p className="mt-5 max-w-3xl text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Esta e a fundacao extraida de um SaaS em producao: React com Vite e
-                        TypeScript no frontend, Supabase no backend, Edge Functions em Deno para
-                        cobranca, convites, auditoria e LGPD. Substitua este texto e as demais
-                        secoes pelo posicionamento do seu produto.
+                        {BRAND.platformFull} ({BRAND.platform}): protótipo de um Representante Digital Cognitivo
+                        para apoio em apresentações, aulas e reuniões, construído sobre uma base SaaS
+                        multi-tenant (React, TypeScript, Tailwind e Supabase).
                     </p>
                 </section>
             </main>

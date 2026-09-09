@@ -5,7 +5,6 @@ import NotificationBell from '../components/NotificationBell';
 import PlanSelectionModal from '../components/PlanSelectionModal';
 import PaymentPendingScreen from '../components/PaymentPendingScreen';
 import { useAuth } from '../contexts/AuthContext';
-import { useTerminology } from '../hooks/useTerminology';
 
 interface Breadcrumb {
     label: string;
@@ -13,6 +12,9 @@ interface Breadcrumb {
 }
 
 const ROUTE_BREADCRUMBS: { pattern: RegExp; crumbs: Breadcrumb[] }[] = [
+    { pattern: /^\/representantes$/, crumbs: [{ label: 'Representantes' }] },
+    { pattern: /^\/representantes\/[^/]+/, crumbs: [{ label: 'Representantes', path: '/representantes' }, { label: 'Detalhe' }] },
+    { pattern: /^\/historico$/, crumbs: [{ label: 'Histórico' }] },
     { pattern: /^\/clientes$/, crumbs: [{ label: 'Clientes' }] },
     { pattern: /^\/clientes\/[^/]+$/, crumbs: [{ label: 'Clientes', path: '/clientes' }, { label: 'Perfil' }] },
     { pattern: /^\/equipes$/, crumbs: [{ label: 'Equipes' }] },
@@ -36,13 +38,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { tenant, profile, loading } = useAuth();
     const location = useLocation();
-    const terminology = useTerminology();
 
     const breadcrumbs = ROUTE_BREADCRUMBS.find(r => r.pattern.test(location.pathname))?.crumbs ?? [];
 
     const bottomNavItems = [
         { icon: 'dashboard', label: 'Início', path: '/dashboard' },
-        { icon: 'groups', label: terminology.clients, path: '/clientes' },
+        { icon: 'psychology', label: 'RDC', path: '/representantes' },
         { icon: 'person', label: 'Perfil', path: '/perfil' },
     ];
 
@@ -110,7 +111,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
                 </div>
 
                 <footer className="mt-auto p-6 md:p-8 pb-24 lg:pb-8 text-center text-slate-400 text-xs border-t border-slate-100 dark:border-slate-900 flex flex-col items-center gap-2">
-                    <p>© 2026 Plataforma SaaS Foundation B2B. Apenas para Uso Profissional.</p>
+                    <p>© 2026 Plataforma RDC B2B. Apenas para Uso Profissional.</p>
                     <Link to="/privacidade" className="hover:text-primary transition-colors uppercase font-black tracking-widest text-[9px]">Política de Privacidade & LGPD</Link>
                 </footer>
             </main>
@@ -118,7 +119,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, title }) =>
             {/* Bottom navigation — mobile only */}
             <nav className="lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex items-center justify-around px-2 py-2">
                 {bottomNavItems.map(item => {
-                    const isActive = location.pathname === item.path;
+                    const isActive = item.path === '/representantes'
+                        ? location.pathname.startsWith('/representantes')
+                        : location.pathname === item.path;
                     return (
                         <Link
                             key={item.path}

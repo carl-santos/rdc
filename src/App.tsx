@@ -19,6 +19,12 @@ import CookieConsent from './components/CookieConsent';
 
 // Lazy: cada um vira um chunk separado
 const Dashboard       = lazy(() => import('./pages/Dashboard'));
+const Representatives = lazy(() => import('./pages/cdr/Representatives'));
+const RepresentativeLayout = lazy(() => import('./pages/cdr/RepresentativeLayout'));
+const RepresentativeOverview = lazy(() => import('./pages/cdr/RepresentativeOverview'));
+const RepresentativeKnowledge = lazy(() => import('./pages/cdr/RepresentativeKnowledge'));
+const RepresentativeSession = lazy(() => import('./pages/cdr/RepresentativeSession'));
+const CdrHistory      = lazy(() => import('./pages/cdr/CdrHistory'));
 const Clients         = lazy(() => import('./pages/Clients'));
 const ClientProfile   = lazy(() => import('./pages/ClientProfile'));
 const Settings        = lazy(() => import('./pages/Settings'));
@@ -100,6 +106,16 @@ function App() {
                 {/* Equipe do assinante */}
                 <Route element={<ProtectedRoute />}>
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/representantes" element={<Representatives />} />
+                    <Route path="/representantes/:id" element={<RepresentativeLayout />}>
+                        <Route index element={<RepresentativeOverview />} />
+                        <Route path="conhecimento" element={<RepresentativeKnowledge />} />
+                        <Route path="chat" element={<RepresentativeSession mode="chat" />} />
+                        <Route path="apresentacao" element={<RepresentativeSession mode="presentation" />} />
+                        <Route path="aula" element={<RepresentativeSession mode="class" />} />
+                        <Route path="reuniao" element={<RepresentativeSession mode="meeting" />} />
+                    </Route>
+                    <Route path="/historico" element={<CdrHistory />} />
                     <Route path="/clientes" element={<Clients />} />
                     <Route path="/clientes/:clientId" element={<ClientProfile />} />
                     <Route path="/configuracoes" element={<Settings />} />

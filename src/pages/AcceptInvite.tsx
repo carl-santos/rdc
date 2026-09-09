@@ -251,7 +251,7 @@ const AcceptInvite = () => {
                         <div className="flex flex-col items-center mb-8">
                             <Link to="/" className="flex items-center gap-2 text-primary mb-2">
                                 <span className="material-symbols-outlined text-4xl">deployed_code</span>
-                                <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h1>
+                                <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">RDC</h1>
                             </Link>
                         </div>
                         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-8 md:p-10">
@@ -315,7 +315,7 @@ const AcceptInvite = () => {
                     <div className="flex flex-col items-center mb-8">
                         <Link to="/" className="flex items-center gap-2 text-primary mb-2">
                             <span className="material-symbols-outlined text-4xl">deployed_code</span>
-                            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h1>
+                            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">RDC</h1>
                         </Link>
                     </div>
 
@@ -482,7 +482,7 @@ const AcceptInvite = () => {
                                                     />
                                                 </div>
                                                 <label htmlFor="consentMarketing" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer leading-relaxed">
-                                                    Desejo receber novidades, atualizações e ofertas da SaaS Foundation por e-mail.
+                                                    Desejo receber novidades, atualizações e ofertas da RDC por e-mail.
                                                     <span className="text-slate-400 dark:text-slate-500 text-xs ml-1">Opcional</span>
                                                 </label>
                                             </div>
@@ -507,7 +507,7 @@ const AcceptInvite = () => {
                 <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-2 text-slate-400">
                         <span className="material-symbols-outlined text-xl">deployed_code</span>
-                        <span className="text-sm font-medium">© 2026 SaaS Foundation SaaS.</span>
+                        <span className="text-sm font-medium">© 2026 RDC SaaS.</span>
                     </div>
                     <div className="flex items-center gap-6">
                         <Link className="text-xs text-slate-500 hover:text-primary transition-colors uppercase tracking-wider font-bold" to="/termos">Termos</Link>

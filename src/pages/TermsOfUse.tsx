@@ -24,7 +24,7 @@ const TermsOfUse = () => {
                     <div className="space-y-12 text-slate-600 dark:text-slate-300 leading-relaxed text-lg font-medium relative z-10">
                         <div className="space-y-4">
                             <p>
-                                Bem-vindo à plataforma SaaS Foundation. Estes Termos de Uso regulam o acesso e a utilização da plataforma digital SaaS Foundation, seus serviços, funcionalidades e conteúdos.
+                                Bem-vindo à plataforma RDC. Estes Termos de Uso regulam o acesso e a utilização da plataforma digital RDC, seus serviços, funcionalidades e conteúdos.
                             </p>
                             <p>
                                 Ao acessar ou utilizar a plataforma, o usuário declara ter lido, compreendido e concordado com estes Termos de Uso.
@@ -35,7 +35,7 @@ const TermsOfUse = () => {
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">1. Definições</h2>
                             <p className="mb-4">Para os fins destes Termos de Uso, consideram-se:</p>
                             <ul className="list-disc pl-6 space-y-2">
-                                <li><strong>Plataforma:</strong> sistema digital SaaS Foundation, acessível via web ou aplicativos.</li>
+                                <li><strong>Plataforma:</strong> sistema digital RDC, acessível via web ou aplicativos.</li>
                                 <li><strong>Usuário:</strong> qualquer pessoa que utilize a plataforma.</li>
                                 <li><strong>Profissional:</strong> usuário que utiliza a plataforma para realizar análises ou acompanhamentos de clientes.</li>
                                 <li><strong>Cliente, Cliente ou Aluno:</strong> pessoa cujos dados ou imagens são inseridos na plataforma para análise.</li>
@@ -46,13 +46,13 @@ const TermsOfUse = () => {
                         
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">2. Aceitação dos Termos</h2>
-                            <p className="mb-4">O uso da plataforma implica na aceitação integral destes Termos de Uso e da Política de Privacidade da SaaS Foundation.</p>
+                            <p className="mb-4">O uso da plataforma implica na aceitação integral destes Termos de Uso e da Política de Privacidade da RDC.</p>
                             <p>Caso o usuário não concorde com qualquer disposição destes termos, não deverá utilizar a plataforma.</p>
                         </section>
                         
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">3. Objeto da Plataforma</h2>
-                            <p className="mb-4">A plataforma SaaS Foundation disponibiliza ferramentas digitais destinadas à:</p>
+                            <p className="mb-4">A plataforma RDC disponibiliza ferramentas digitais destinadas à:</p>
                             <ul className="list-disc pl-6 space-y-2 mb-4">
                                 <li>análise visual e computacional de imagens corporais;</li>
                                 <li>operações e projeções visuais;</li>
@@ -71,7 +71,7 @@ const TermsOfUse = () => {
                                 <li>atualizar seus dados cadastrais;</li>
                                 <li>comunicar imediatamente qualquer uso não autorizado de sua conta.</li>
                             </ul>
-                            <p className="mb-4">A SaaS Foundation poderá suspender ou cancelar contas que apresentem:</p>
+                            <p className="mb-4">A RDC poderá suspender ou cancelar contas que apresentem:</p>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>informações falsas;</li>
                                 <li>uso indevido da plataforma;</li>
@@ -136,7 +136,7 @@ const TermsOfUse = () => {
 
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">9. Segurança da Informação</h2>
-                            <p className="mb-4">A SaaS Foundation adota medidas técnicas e administrativas adequadas para proteger os dados armazenados contra:</p>
+                            <p className="mb-4">A RDC adota medidas técnicas e administrativas adequadas para proteger os dados armazenados contra:</p>
                             <ul className="list-disc pl-6 space-y-2 mb-4">
                                 <li>acesso não autorizado;</li>
                                 <li>perda ou destruição acidental;</li>
@@ -147,14 +147,14 @@ const TermsOfUse = () => {
 
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">10. Limitação de Responsabilidade</h2>
-                            <p className="mb-4">A plataforma SaaS Foundation fornece ferramentas tecnológicas de análise e operação.</p>
+                            <p className="mb-4">A plataforma RDC fornece ferramentas tecnológicas de análise e operação.</p>
                             <p className="mb-4">Os resultados gerados possuem caráter informativo e auxiliar, não substituindo:</p>
                             <ul className="list-disc pl-6 space-y-2 mb-4">
                                 <li>avaliação médica;</li>
                                 <li>aconselhamento profissional especializado;</li>
                                 <li>orientação profissional especializada.</li>
                             </ul>
-                            <p>A SaaS Foundation não se responsabiliza por decisões tomadas com base nas informações geradas pela plataforma.</p>
+                            <p>A RDC não se responsabiliza por decisões tomadas com base nas informações geradas pela plataforma.</p>
                         </section>
 
                         <section>
@@ -166,13 +166,13 @@ const TermsOfUse = () => {
                                 <li>algoritmos</li>
                                 <li>interfaces</li>
                             </ul>
-                            <p className="mb-2">são de propriedade da SaaS Foundation ou licenciados à plataforma.</p>
+                            <p className="mb-2">são de propriedade da RDC ou licenciados à plataforma.</p>
                             <p>É proibida a reprodução, modificação ou distribuição sem autorização.</p>
                         </section>
 
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">12. Disponibilidade do Serviço</h2>
-                            <p className="mb-4">A SaaS Foundation busca manter a plataforma disponível continuamente, porém não garante funcionamento ininterrupto.</p>
+                            <p className="mb-4">A RDC busca manter a plataforma disponível continuamente, porém não garante funcionamento ininterrupto.</p>
                             <p className="mb-4">A plataforma poderá realizar:</p>
                             <ul className="list-disc pl-6 space-y-2 mb-4">
                                 <li>manutenções programadas</li>
@@ -185,7 +185,7 @@ const TermsOfUse = () => {
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">13. Cancelamento e Exclusão de Conta</h2>
                             <p className="mb-4">O usuário poderá solicitar a exclusão de sua conta a qualquer momento.</p>
-                            <p className="mb-4">A SaaS Foundation poderá suspender ou cancelar contas em caso de:</p>
+                            <p className="mb-4">A RDC poderá suspender ou cancelar contas em caso de:</p>
                             <ul className="list-disc pl-6 space-y-2">
                                 <li>violação destes termos</li>
                                 <li>uso indevido da plataforma</li>
@@ -195,7 +195,7 @@ const TermsOfUse = () => {
 
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">14. Alterações nos Termos</h2>
-                            <p className="mb-4">A SaaS Foundation poderá atualizar estes Termos de Uso periodicamente.</p>
+                            <p className="mb-4">A RDC poderá atualizar estes Termos de Uso periodicamente.</p>
                             <p>A versão atualizada será disponibilizada na plataforma com indicação da data de revisão.</p>
                         </section>
 

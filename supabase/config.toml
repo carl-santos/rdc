@@ -5,7 +5,7 @@
 # --project-ref <ref>` e fica em supabase/.temp, que esta no .gitignore de
 # proposito: esse diretorio aponta para um banco real e nunca deve ser
 # versionado.
-project_id = "saas-foundation"
+project_id = "rdc"
 
 [api]
 enabled = true
@@ -40,8 +40,8 @@ file_size_limit = "50MiB"
 
 [auth]
 enabled = true
-site_url = "http://127.0.0.1:5173"
-additional_redirect_urls = ["http://127.0.0.1:5173/aceitar-convite"]
+site_url = "http://127.0.0.1:3000"
+additional_redirect_urls = ["http://127.0.0.1:3000/aceitar-convite", "http://localhost:3000/aceitar-convite"]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 refresh_token_reuse_interval = 10
@@ -69,3 +69,6 @@ verify_jwt = false
 [functions.csp-report]
 # Recebe relatorios de violacao de CSP do navegador, sem sessao.
 verify_jwt = false
+
+# Chat do Representante Digital Cognitivo. Autorizacao interna (JWT + papel + posse).
+# [functions.cdr-chat] assume verify_jwt = true (padrao).

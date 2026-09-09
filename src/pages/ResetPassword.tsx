@@ -71,7 +71,7 @@ const ResetPassword = () => {
                     <div className="flex flex-col items-center mb-8">
                         <Link to="/" className="flex items-center gap-2 text-primary mb-2">
                             <span className="material-symbols-outlined text-4xl">deployed_code</span>
-                            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h1>
+                            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">RDC</h1>
                         </Link>
                     </div>
 

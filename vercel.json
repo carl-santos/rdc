@@ -1,5 +1,5 @@
 {
-  "$comment": "O ref ktdetchsxpagahqlneom aparece em report-uri e Report-To: e para la que o navegador envia relatorios de violacao de CSP. Ao trocar de projeto Supabase, atualize as duas ocorrencias.",
+  "$comment": "O ref kxzmxakwpmibgzapsufw aparece em report-uri e Report-To: e para la que o navegador envia relatorios de violacao de CSP. Ao trocar de projeto Supabase, atualize as duas ocorrencias.",
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -29,11 +29,11 @@
         },
         {
           "key": "Report-To",
-          "value": "{\"group\":\"csp-endpoint\",\"max_age\":10886400,\"endpoints\":[{\"url\":\"https://ktdetchsxpagahqlneom.supabase.co/functions/v1/csp-report\"}]}"
+          "value": "{\"group\":\"csp-endpoint\",\"max_age\":10886400,\"endpoints\":[{\"url\":\"https://kxzmxakwpmibgzapsufw.supabase.co/functions/v1/csp-report\"}]}"
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in; connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co wss://*.supabase.in https://challenges.cloudflare.com https://*.ingest.sentry.io https://*.ingest.us.sentry.io; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; report-uri https://ktdetchsxpagahqlneom.supabase.co/functions/v1/csp-report; report-to csp-endpoint;"
+          "value": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co https://*.supabase.in; connect-src 'self' https://*.supabase.co https://*.supabase.in wss://*.supabase.co wss://*.supabase.in https://challenges.cloudflare.com https://*.ingest.sentry.io https://*.ingest.us.sentry.io; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; report-uri https://kxzmxakwpmibgzapsufw.supabase.co/functions/v1/csp-report; report-to csp-endpoint;"
         }
       ]
     }

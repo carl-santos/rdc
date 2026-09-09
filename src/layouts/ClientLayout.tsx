@@ -75,7 +75,7 @@ const ClientLayout = ({ children, title }: ClientLayoutProps) => {
                         <div className="bg-primary size-7 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                             <span className="material-symbols-outlined text-base">vital_signs</span>
                         </div>
-                        <span className="text-base font-black tracking-tight text-slate-900 dark:text-white">SaaS Foundation</span>
+                        <span className="text-base font-black tracking-tight text-slate-900 dark:text-white">RDC</span>
                     </Link>
                     <button
                         onClick={() => setSidebarOpen(false)}
@@ -173,7 +173,7 @@ const ClientLayout = ({ children, title }: ClientLayoutProps) => {
                 </div>
 
                 <footer className="p-6 pb-24 lg:pb-6 text-center text-slate-400 text-xs border-t border-slate-100 dark:border-slate-900 flex items-center justify-center gap-4">
-                    <span>© 2026 SaaS Foundation</span>
+                    <span>© 2026 RDC</span>
                     <Link to="/privacidade" className="hover:text-primary transition-colors">Privacidade</Link>
                     <Link to="/termos" className="hover:text-primary transition-colors">Termos</Link>
                 </footer>

@@ -1,25 +1,44 @@
-# SaaS Foundation
+# RDC — Representante Digital Cognitivo
 
-Base para aplicações SaaS multi-tenant em React + Supabase. Extraída de um
-produto em produção e podada até sobrar apenas o que se repete em todo SaaS:
-autenticação, isolamento por tenant, cobrança recorrente, suporte, auditoria e
-LGPD.
+Protótipo da **Plataforma de Amplificação da Comunicação Humana (HCAP)** para o
+TCC: um Representante Digital Cognitivo treinado com documentos do próprio
+usuário, para apoio em apresentações, aulas e reuniões.
 
-O que **não** está aqui é o seu produto. A ideia é começar pelo diferencial, não
-pela quinta vez que você escreve uma tela de login.
+A aplicação reaproveita a base **SaaS Foundation** (autenticação, multi-tenant
+com RLS, assinatura, suporte, auditoria e LGPD) e adiciona o domínio do produto:
+representantes, base de conhecimento, chat com Claude, modos de uso e histórico.
+
+Fora do escopo deste TCC: clonagem de voz, avatares 3D, integração automática
+com videoconferência e participação autônoma em reuniões.
 
 ## Stack
 
-| Camada | Escolha |
-| --- | --- |
-| Frontend | React 18, TypeScript, Vite, Tailwind |
-| Estado remoto | TanStack Query |
-| Backend | Supabase (Postgres + Auth + Storage) |
-| Serverless | Edge Functions em Deno |
-| Testes | Vitest + Testing Library, pgTAP para RLS |
-| Deploy | Vercel (frontend), Supabase (functions) |
+| Camada | Escolha | Nota |
+| --- | --- | --- |
+| Frontend | React 18, TypeScript, Vite, Tailwind | Conforme o pré-projeto |
+| Estado remoto | TanStack Query | |
+| Backend | Supabase (Postgres + Auth + Storage) e Edge Functions | Equivale ao backend do MVP; FastAPI fica como evolução |
+| IA | API Claude (Anthropic) no chat do RDC | OpenAI permanece no suporte |
+| Testes | Vitest + Testing Library, pgTAP para RLS | |
+| Deploy | Vercel (frontend), Supabase (functions e banco) | |
 
-## O que já vem pronto
+## O que o produto acrescenta
+
+**Representante digital.** Cada tenant cria um ou mais RDCs com persona,
+instruções éticas e nível de autonomia (supervisionado, assistido, autônomo).
+
+**Base de conhecimento.** Upload privado no Storage (`cdr-documents`). Textos
+(`.txt`, `.md`, `.csv`) entram no contexto do chat na hora; PDF/Office ficam
+armazenados para extração nas próximas sprints.
+
+**Chat e modos.** A Edge Function `cdr-chat` monta o prompt com o material
+autorizado e o modo (chat, apresentação, aula, reunião), consome a cota de
+operações e grava a conversa.
+
+**Histórico e auditoria.** Conversas ficam em `cdr_conversations` /
+`cdr_messages`. Eventos do produto usam a categoria `cdr` na trilha de auditoria.
+
+## O que já vinha da fundação
 
 **Multi-tenant com RLS.** Toda tabela tem Row Level Security habilitado. O
 isolamento vive no banco, não no frontend: os helpers de policy
@@ -34,9 +53,7 @@ o próprio papel ou troque de tenant.
 
 **Assinatura e cota.** Planos com limite mensal de operações, compra de créditos
 avulsos, webhook de pagamento (Asaas) e bloqueio automático de escrita quando a
-assinatura não está ativa. O `increment_operation_usage` consome a cota em uma
-única instrução condicional, então duas requisições simultâneas não estouram o
-limite.
+assinatura não está ativa. Cada consulta ao RDC chama `increment_operation_usage`.
 
 **Suporte.** Chamados com classificação automática, detecção de duplicidade,
 anexos, base de conhecimento com busca full-text e chatbot por fluxos. A
@@ -55,26 +72,27 @@ IP e user-agent, e função de limpeza por retenção.
 ### 1. Dependências
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. Projeto no Supabase
 
-Crie um projeto novo em [supabase.com](https://supabase.com), depois vincule e
-aplique o schema:
+O projeto da aplicação é o [RDC no Supabase](https://kxzmxakwpmibgzapsufw.supabase.co)
+(`kxzmxakwpmibgzapsufw`). Vincule o CLI e aplique o schema:
 
 ```bash
-supabase link --project-ref <ref-do-seu-projeto>
+supabase link --project-ref kxzmxakwpmibgzapsufw
 supabase db push
 ```
 
-A migration `20260101000000_baseline.sql` cria o schema inteiro. Um banco limpo
-é suficiente — não há dependência de tabela criada pelo painel.
+A migration `20260101000000_baseline.sql` cria o schema da fundação. A
+`20260101000016_cdr_domain.sql` cria representantes, documentos, conversas,
+mensagens e o bucket `cdr-documents`.
 
 Depois de cada migration nova, regere os tipos:
 
 ```bash
-npm run types:gen
+pnpm types:gen
 ```
 
 Esse comando exige `supabase link` e Docker, porque o CLI roda o postgres-meta
@@ -88,14 +106,18 @@ cp .env.example .env.local
 
 Preencha `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` com os valores de
 Project Settings → API. Os secrets das Edge Functions não vão em arquivo: são
-configurados em Project Settings → Edge Functions → Secrets, e o `.env.example`
-lista quais são.
+configurados em Project Settings → Edge Functions → Secrets. Para o chat do RDC:
+
+- `ANTHROPIC_API_KEY`
+- `ANTHROPIC_MODEL` (opcional)
 
 ### 4. Rodar
 
 ```bash
-npm run dev
+pnpm dev
 ```
+
+O Vite sobe em `http://localhost:3000`.
 
 ### 5. Primeiro administrador da plataforma
 
@@ -140,50 +162,39 @@ supabase functions deploy
 ```
 
 `asaas-webhook` e `csp-report` são públicas por definição (`verify_jwt = false`
-em `supabase/config.toml`); ambas validam a origem por conta própria.
+em `supabase/config.toml`); ambas validam a origem por conta própria. O
+`cdr-chat` exige JWT e checa papel, posse do representante e cota.
 
 ## Comandos
 
 | Comando | O que faz |
 | --- | --- |
-| `npm run dev` | Servidor de desenvolvimento |
-| `npm run build` | Typecheck + build de produção |
-| `npm run lint` | ESLint |
-| `npm run test:run` | Testes unitários |
-| `npm run types:gen` | Regera `src/types/database.ts` do banco vinculado |
+| `pnpm dev` | Servidor de desenvolvimento na porta 3000 |
+| `pnpm build` | Typecheck + build de produção |
+| `pnpm lint` | ESLint |
+| `pnpm test:run` | Testes unitários |
+| `pnpm types:gen` | Regera `src/types/database.ts` do banco vinculado |
 | `supabase test db` | Testes de RLS (pgTAP) |
 
 ## Estrutura
 
 ```
 src/
-  components/     UI compartilhada, guards de rota, chatbot, toasts
+  brand.ts        Nome e posicionamento do produto
+  components/     UI compartilhada; componentes do RDC em components/cdr
   contexts/       AuthContext (sessão, perfil, tenant)
-  hooks/          useUsageQuota, useTenantGate, useTerminology, useAuditLog
+  hooks/          useUsageQuota, useTenantGate, useAuditLog, useCdr
   layouts/        DashboardLayout (equipe), ClientLayout (portal)
-  pages/          Telas da equipe
+  pages/
+    cdr/          Representantes, conhecimento, modos e histórico
     admin/        Painel da plataforma
     client/       Portal do cliente final
-  utils/          Cliente Supabase, storage, validações
+  utils/          Cliente Supabase, extração de documentos, storage
 supabase/
-  migrations/     Baseline + módulos (LGPD, FAQ, chatbot, RLS de tickets)
-  functions/      Edge Functions
+  migrations/     Baseline + módulos (LGPD, FAQ, chatbot, domínio CDR)
+  functions/      Edge Functions (inclui cdr-chat)
   tests/          Testes de isolamento RLS
 ```
-
-## Adaptando ao seu produto
-
-**Terminologia.** `useTerminology` traduz "cliente final" para o vocabulário do
-segmento do tenant — aluno, paciente, associado. Para adicionar um segmento,
-basta uma entrada em `SEGMENT_NOUNS` e uma `<option>` em Settings.
-
-**A unidade cobrada.** A cota é medida em "operações", um nome deliberadamente
-neutro. Chame `increment_operation_usage(tenant_id)` no ponto em que o seu
-produto consome uma unidade, e ajuste o rótulo na interface.
-
-**Marca.** Procure por `SaaS Foundation` em `index.html`, `Header`, `Footer` e
-`Home`. Ao trocar de projeto Supabase, atualize também o ref em `vercel.json`,
-que aparece no `report-uri` e no `Report-To` da CSP.
 
 ## Segurança
 

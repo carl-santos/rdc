@@ -139,7 +139,7 @@ const PaymentPendingScreen = () => {
                 </div>
 
                 <p className="mt-8 text-[10px] text-slate-300 dark:text-slate-700 font-medium">
-                    SaaS Foundation · Pagamento processado pelo ASAAS
+                    RDC · Pagamento processado pelo ASAAS
                 </p>
             </div>
         </div>

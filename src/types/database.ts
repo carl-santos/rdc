@@ -831,6 +831,212 @@ export type Database = {
           },
         ]
       }
+      digital_representatives: {
+        Row: {
+          id: string
+          tenant_id: string
+          created_by: string | null
+          nome: string
+          descricao: string | null
+          persona: string | null
+          instrucoes: string | null
+          autonomia: string
+          idioma: string
+          ativo: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          created_by?: string | null
+          nome: string
+          descricao?: string | null
+          persona?: string | null
+          instrucoes?: string | null
+          autonomia?: string
+          idioma?: string
+          ativo?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          created_by?: string | null
+          nome?: string
+          descricao?: string | null
+          persona?: string | null
+          instrucoes?: string | null
+          autonomia?: string
+          idioma?: string
+          ativo?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "digital_representatives_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cdr_documents: {
+        Row: {
+          id: string
+          tenant_id: string
+          representative_id: string
+          uploaded_by: string | null
+          file_name: string
+          storage_path: string
+          mime_type: string | null
+          file_size: number | null
+          status: string
+          extracted_text: string | null
+          error_message: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          representative_id: string
+          uploaded_by?: string | null
+          file_name: string
+          storage_path: string
+          mime_type?: string | null
+          file_size?: number | null
+          status?: string
+          extracted_text?: string | null
+          error_message?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          representative_id?: string
+          uploaded_by?: string | null
+          file_name?: string
+          storage_path?: string
+          mime_type?: string | null
+          file_size?: number | null
+          status?: string
+          extracted_text?: string | null
+          error_message?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cdr_documents_representative_id_fkey"
+            columns: ["representative_id"]
+            isOneToOne: false
+            referencedRelation: "digital_representatives"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cdr_documents_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cdr_conversations: {
+        Row: {
+          id: string
+          tenant_id: string
+          representative_id: string
+          user_id: string
+          mode: string
+          title: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          representative_id: string
+          user_id: string
+          mode?: string
+          title?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          representative_id?: string
+          user_id?: string
+          mode?: string
+          title?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cdr_conversations_representative_id_fkey"
+            columns: ["representative_id"]
+            isOneToOne: false
+            referencedRelation: "digital_representatives"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cdr_conversations_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cdr_messages: {
+        Row: {
+          id: string
+          conversation_id: string
+          tenant_id: string
+          role: string
+          content: string
+          metadata: Json
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          conversation_id: string
+          tenant_id: string
+          role: string
+          content: string
+          metadata?: Json
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          conversation_id?: string
+          tenant_id?: string
+          role?: string
+          content?: string
+          metadata?: Json
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cdr_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "cdr_conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cdr_messages_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

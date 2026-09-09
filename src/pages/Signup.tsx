@@ -239,7 +239,7 @@ const Signup = () => {
                     <div className="flex justify-between items-center h-16">
                         <Link to="/" className="flex items-center gap-2 text-primary">
                             <span className="material-symbols-outlined text-3xl">deployed_code</span>
-                            <h1 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h1>
+                            <h1 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">RDC</h1>
                         </Link>
                     </div>
                 </div>
@@ -444,7 +444,7 @@ const Signup = () => {
                                             />
                                         </div>
                                         <label htmlFor="consentMarketing" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer">
-                                            Desejo receber novidades, atualizações e ofertas da SaaS Foundation por e-mail. <span className="text-slate-400 dark:text-slate-500 text-xs">Opcional</span>
+                                            Desejo receber novidades, atualizações e ofertas da RDC por e-mail. <span className="text-slate-400 dark:text-slate-500 text-xs">Opcional</span>
                                         </label>
                                     </div>
                                 </div>

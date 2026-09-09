@@ -517,7 +517,7 @@ const ClientLgpd = () => {
                         <div className="bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 text-sm text-slate-500 dark:text-slate-400">
                             <p className="flex items-start gap-2">
                                 <span className="material-symbols-outlined text-slate-400 text-base mt-0.5 flex-shrink-0">info</span>
-                                Para exercer seus direitos, podemos solicitar a verificação da sua identidade. As solicitações são processadas pela equipe SaaS Foundation em até 15 dias úteis. Para dúvidas, entre em contato via{' '}
+                                Para exercer seus direitos, podemos solicitar a verificação da sua identidade. As solicitações são processadas pela equipe RDC em até 15 dias úteis. Para dúvidas, entre em contato via{' '}
                                 <a href="mailto:privacidade@exemplo.com.br" className="text-primary font-bold hover:underline">privacidade@exemplo.com.br</a>.
                             </p>
                         </div>

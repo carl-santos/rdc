@@ -30,6 +30,7 @@ cada uma aplica.
 |--------|:------------:|----------------------------|
 | `admin-impersonate` | `true` | JWT + `platform_admin` + rate-limit (3/h) |
 | `ai-support-chat` | `true` | JWT + posse do ticket + rate-limit |
+| `cdr-chat` | `true` | JWT + profissional do tenant + posse do representante + cota |
 | `asaas-checkout` | `true` | JWT + `tenant_admin` |
 | `asaas-credits-checkout` | `true` | JWT + `tenant_admin` |
 | `asaas-subscription-manage` | `true` | JWT + `tenant_admin` |

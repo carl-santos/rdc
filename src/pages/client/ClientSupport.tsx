@@ -74,12 +74,12 @@ const ClientSupport = () => {
 
     const handleOpenWhatsApp = () => {
         const phone = (tenant as any)?.whatsapp_atendimento?.replace(/\D/g, '') || '5542998244794';
-        const message = 'Olá! Preciso de suporte no SaaS Foundation (Portal do Cliente)';
+        const message = 'Olá! Preciso de suporte no RDC (Portal do Cliente)';
         window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
     };
 
     const handleSendEmail = () => {
-        window.location.href = `mailto:suporte@exemplo.com.br?subject=Suporte SaaS Foundation - Portal do Cliente&body=Olá,%0A%0APreciso de ajuda com:%0A%0A`;
+        window.location.href = `mailto:suporte@exemplo.com.br?subject=Suporte RDC - Portal do Cliente&body=Olá,%0A%0APreciso de ajuda com:%0A%0A`;
     };
 
     const [pendingFiles, setPendingFiles] = useState<PendingFile[]>([]);

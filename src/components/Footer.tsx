@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { BRAND } from '../brand';
 
 const Footer = () => {
     const [showFaq, setShowFaq] = useState(false);
@@ -19,7 +20,7 @@ const Footer = () => {
     const faqReady = !!(faqForm.nome.trim() && faqForm.email.trim() && faqForm.mensagem.trim());
     const handleSendFaq = () => {
         if (!faqReady) return;
-        const subject = faqForm.assunto.trim() || 'Contato pelo site SaaS Foundation';
+        const subject = faqForm.assunto.trim() || `Contato pelo site ${BRAND.name}`;
         const body = `Nome: ${faqForm.nome}\nE-mail: ${faqForm.email}\n\nMensagem:\n${faqForm.mensagem}`;
         window.location.href = `mailto:contato@exemplo.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         setShowFaq(false);
@@ -34,12 +35,12 @@ const Footer = () => {
                         <div className="col-span-1">
                             <div className="flex items-center gap-3 mb-6">
                                 <div className="bg-primary p-1.5 rounded-lg">
-                                    <span className="material-symbols-outlined text-white text-xl">monitoring</span>
+                                    <span className="material-symbols-outlined text-white text-xl">psychology</span>
                                 </div>
-                                <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">SaaS Foundation</h2>
+                                <h2 className="text-lg font-extrabold text-slate-900 dark:text-white">{BRAND.name}</h2>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                A tecnologia que aproxima o objetivo do resultado por meio de operações digitais avançadas.
+                                A tecnologia que aproxima o conhecimento de quem precisa ouvi-lo — com controle ético e acessibilidade.
                             </p>
                         </div>
                         <div>
@@ -85,7 +86,7 @@ const Footer = () => {
                     </div>
                     <div className="pt-12 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
                         <p className="text-xs text-slate-500 dark:text-slate-400">
-                            © 2026 SaaS Foundation. Todos os direitos reservados.
+                            © {BRAND.year} {BRAND.name}. Todos os direitos reservados.
                         </p>
                         <div className="flex gap-6">
                             <a className="text-slate-400 hover:text-primary transition-colors" href="#">

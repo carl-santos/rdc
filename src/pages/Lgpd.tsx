@@ -25,7 +25,7 @@ const Lgpd = () => {
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">1. Diretrizes de Privacidade</h2>
                             <p className="mb-4">
-                                Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), a SaaS Foundation estabelece padrões rigorosos de tratamento de dados pessoais. 
+                                Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), a RDC estabelece padrões rigorosos de tratamento de dados pessoais. 
                                 Sendo uma plataforma voltada a profissionais da saúde e estética, estamos plenamente cientes de nossa responsabilidade como Operadores dos dados de seus clientes.
                             </p>
                         </section>
@@ -34,7 +34,7 @@ const Lgpd = () => {
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">2. Salvamento e Imagens no Banco de Dados</h2>
                             <p className="mb-4">
                                 As imagens geradas pelas operações visuais e os dados fornecidos pelo assinante são mantidas em um banco de dados unicamente com o intuito de apresentar um histórico e acompanhamento visual na conta. 
-                                O consentimento para este armazenamento deve ser captado do cliente pelo profissional pelo uso adequado. No que diz respeito à SaaS Foundation e o usuário final (você), seu consentimento é obtido ativamente durante seu cadastro na plataforma. 
+                                O consentimento para este armazenamento deve ser captado do cliente pelo profissional pelo uso adequado. No que diz respeito à RDC e o usuário final (você), seu consentimento é obtido ativamente durante seu cadastro na plataforma. 
                             </p>
                             <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border-l-4 border-primary mt-4 flex gap-4">
                                 <span className="material-symbols-outlined text-primary text-2xl">verified</span>
@@ -47,7 +47,7 @@ const Lgpd = () => {
                         <section>
                             <h2 className="text-2xl font-black text-slate-900 dark:text-white mb-6 uppercase tracking-tighter">3. Direitos do Titular</h2>
                             <p className="mb-4">
-                                Os usuários da SaaS Foundation têm total controle sobre seus dados e dos perfis que administram. A qualquer momento você pode solicitar a exclusão de todas as imagens, arquivos da conta e finalidade da relação sem prejuízo algum. 
+                                Os usuários da RDC têm total controle sobre seus dados e dos perfis que administram. A qualquer momento você pode solicitar a exclusão de todas as imagens, arquivos da conta e finalidade da relação sem prejuízo algum. 
                             </p>
                         </section>
                     </div>

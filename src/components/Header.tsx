@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BRAND } from '../brand';
 
 const Header = () => {
     const [showContact, setShowContact] = useState(false);
@@ -11,7 +12,7 @@ const Header = () => {
     const contactReady = !!(form.nome.trim() && form.email.trim() && form.mensagem.trim());
     const handleSendContact = () => {
         if (!contactReady) return;
-        const subject = form.assunto.trim() || 'Contato pelo site SaaS Foundation';
+        const subject = form.assunto.trim() || `Contato pelo site ${BRAND.name}`;
         const body = `Nome: ${form.nome}\nE-mail: ${form.email}\n\nMensagem:\n${form.mensagem}`;
         window.location.href = `mailto:contato@exemplo.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         setShowContact(false);
@@ -24,9 +25,9 @@ const Header = () => {
                 <div className="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-3">
                         <div className="bg-primary p-1.5 rounded-lg flex items-center justify-center">
-                            <span className="material-symbols-outlined text-white text-2xl">monitoring</span>
+                            <span className="material-symbols-outlined text-white text-2xl">psychology</span>
                         </div>
-                        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">SaaS Foundation</h2>
+                        <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">{BRAND.name}</h2>
                     </Link>
 
                     {/* Desktop nav */}

@@ -1580,7 +1580,7 @@ const AdminSupport = () => {
                                         </div>
                                         <div className={`max-w-[80%] ${isSupport ? 'text-right items-end' : 'items-start'} flex flex-col gap-1`}>
                                             <div className={`flex items-center gap-2 mb-1 ${isSupport ? 'flex-row-reverse' : ''}`}>
-                                                <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">{isSupport ? '🛡️ Equipe SaaS Foundation' : 'Usuário'}</span>
+                                                <span className="text-[11px] font-bold text-slate-700 dark:text-slate-300">{isSupport ? '🛡️ Equipe RDC' : 'Usuário'}</span>
                                                 <span className="text-[10px] text-slate-400">{new Date(msg.created_at!).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })}</span>
                                             </div>
                                             <div className={`px-5 py-4 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${isSupport ? 'bg-primary text-white rounded-tr-sm shadow-lg shadow-primary/20' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 rounded-tl-sm shadow-sm'}`}>

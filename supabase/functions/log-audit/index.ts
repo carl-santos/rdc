@@ -6,7 +6,7 @@ import { z } from 'https://esm.sh/zod@3.23.8';
 const RequestSchema = z.object({
     event_type:    z.string().max(100).optional(),
     action:        z.string().max(200).optional(),
-    category:      z.enum(['auth', 'operation', 'data_access', 'system', 'billing', 'error']).optional(),
+    category:      z.enum(['auth', 'operation', 'data_access', 'system', 'billing', 'error', 'cdr']).optional(),
     resource_type: z.string().max(100).optional(),
     resource_id:   z.string().uuid().optional().nullable(),
     severity:      z.enum(['info', 'warning', 'critical']).optional(),

@@ -4,42 +4,37 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import { supabase } from '../utils/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import { useUsageQuota } from '../hooks/useUsageQuota';
-import { useTerminology } from '../hooks/useTerminology';
 import { useTenantGate } from '../hooks/useTenantGate';
 
 interface Stats {
-    clients: number;
-    openTickets: number;
-    teamMembers: number;
+    representatives: number;
+    documents: number;
+    conversations: number;
 }
 
 async function fetchStats(tenantId: string): Promise<Stats> {
-    const [clientsRes, ticketsRes, teamRes] = await Promise.all([
-        supabase.from('clients')
+    const [cdrRes, docsRes, convRes] = await Promise.all([
+        supabase.from('digital_representatives')
             .select('*', { count: 'exact', head: true })
-            .eq('tenant_id' as any, tenantId as any)
-            .is('deleted_at', null),
-        supabase.from('support_tickets')
+            .eq('tenant_id' as any, tenantId as any),
+        supabase.from('cdr_documents')
             .select('*', { count: 'exact', head: true })
-            .eq('tenant_id' as any, tenantId as any)
-            .in('status', ['open', 'in_progress']),
-        supabase.from('profiles')
+            .eq('tenant_id' as any, tenantId as any),
+        supabase.from('cdr_conversations')
             .select('*', { count: 'exact', head: true })
-            .eq('tenant_id' as any, tenantId as any)
-            .in('role', ['tenant_admin', 'collaborator']),
+            .eq('tenant_id' as any, tenantId as any),
     ]);
 
     return {
-        clients: clientsRes.count ?? 0,
-        openTickets: ticketsRes.count ?? 0,
-        teamMembers: teamRes.count ?? 0,
+        representatives: cdrRes.count ?? 0,
+        documents: docsRes.count ?? 0,
+        conversations: convRes.count ?? 0,
     };
 }
 
 const Dashboard = () => {
     const { tenant, profile } = useAuth();
     const { usage, isAtLimit, isNearLimit } = useUsageQuota();
-    const t = useTerminology();
     const { isBlocked, message: blockedMessage } = useTenantGate();
 
     const { data: stats, isLoading } = useQuery({
@@ -53,9 +48,9 @@ const Dashboard = () => {
     const percentual = total > 0 ? Math.min(100, Math.round((consumidas / total) * 100)) : 0;
 
     const cards = [
-        { label: t.clients, value: stats?.clients, to: '/clientes', icon: 'groups' },
-        { label: 'Chamados abertos', value: stats?.openTickets, to: '/meus-chamados', icon: 'forum' },
-        { label: 'Equipe', value: stats?.teamMembers, to: '/equipes', icon: 'diversity_3' },
+        { label: 'Representantes', value: stats?.representatives, to: '/representantes', icon: 'psychology' },
+        { label: 'Documentos', value: stats?.documents, to: '/representantes', icon: 'menu_book' },
+        { label: 'Conversas', value: stats?.conversations, to: '/historico', icon: 'history' },
     ];
 
     return (
