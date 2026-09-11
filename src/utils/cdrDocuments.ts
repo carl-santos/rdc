@@ -15,6 +15,17 @@ export const CDR_ALLOWED_EXTENSIONS = [
 const TEXT_EXTENSIONS = ['.txt', '.md', '.csv', '.json'];
 const MAX_EXTRACT_CHARS = 200_000;
 
+const MIME_BY_EXTENSION: Record<string, string> = {
+    '.txt': 'text/plain',
+    '.md': 'text/plain',
+    '.csv': 'text/csv',
+    '.pdf': 'application/pdf',
+    '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    '.doc': 'application/msword',
+    '.ppt': 'application/vnd.ms-powerpoint',
+};
+
 export function fileExtension(name: string): string {
     const i = name.lastIndexOf('.');
     return i >= 0 ? name.slice(i).toLowerCase() : '';
@@ -24,9 +35,20 @@ export function isAllowedCdrDocument(file: File): boolean {
     return (CDR_ALLOWED_EXTENSIONS as readonly string[]).includes(fileExtension(file.name));
 }
 
+/** MIME the Storage bucket accepts. Browsers often leave File.type empty for .md/.docx. */
+export function contentTypeForCdrDocument(file: File): string {
+    return MIME_BY_EXTENSION[fileExtension(file.name)] || file.type || 'application/octet-stream';
+}
+
 export function isExtractableTextFile(file: File): boolean {
     const ext = fileExtension(file.name);
     return TEXT_EXTENSIONS.includes(ext) || file.type.startsWith('text/');
+}
+
+const SERVER_EXTRACT_EXTENSIONS = ['.pdf', '.docx', '.pptx', '.doc', '.ppt'];
+
+export function needsServerExtraction(fileName: string): boolean {
+    return SERVER_EXTRACT_EXTENSIONS.includes(fileExtension(fileName));
 }
 
 export async function extractDocumentText(file: File): Promise<string | null> {

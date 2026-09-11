@@ -2,15 +2,15 @@ import { NavLink, Outlet, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import DashboardLayout from '../../layouts/DashboardLayout';
 import { getRepresentative } from '../../hooks/useCdr';
-import { MODE_LABELS } from '../../types/cdr';
+import { MODE_ICONS, MODE_LABELS } from '../../types/cdr';
 
 const tabs = [
-    { to: '', label: 'Visão geral', end: true },
-    { to: 'conhecimento', label: 'Conhecimento', end: false },
-    { to: 'chat', label: MODE_LABELS.chat, end: false },
-    { to: 'apresentacao', label: MODE_LABELS.presentation, end: false },
-    { to: 'aula', label: MODE_LABELS.class, end: false },
-    { to: 'reuniao', label: MODE_LABELS.meeting, end: false },
+    { to: '', label: 'Visão geral', end: true, icon: 'dashboard' },
+    { to: 'conhecimento', label: 'Conhecimento', end: false, icon: 'menu_book' },
+    { to: 'chat', label: MODE_LABELS.chat, end: false, icon: MODE_ICONS.chat },
+    { to: 'apresentacao', label: MODE_LABELS.presentation, end: false, icon: MODE_ICONS.presentation },
+    { to: 'aula', label: MODE_LABELS.class, end: false, icon: MODE_ICONS.class },
+    { to: 'reuniao', label: MODE_LABELS.meeting, end: false, icon: MODE_ICONS.meeting },
 ];
 
 const RepresentativeLayout = () => {
@@ -65,7 +65,10 @@ const RepresentativeLayout = () => {
                                 }`
                             }
                         >
-                            {tab.label}
+                            <span className="inline-flex items-center gap-1.5">
+                                <span className="material-symbols-outlined text-[16px]">{tab.icon}</span>
+                                {tab.label}
+                            </span>
                         </NavLink>
                     ))}
                 </nav>

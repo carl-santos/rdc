@@ -27,6 +27,18 @@ export async function getRepresentative(id: string): Promise<DigitalRepresentati
     return (data as DigitalRepresentative | null) ?? null;
 }
 
+export async function extractCdrDocument(documentId: string): Promise<void> {
+    const { data, error } = await supabase.functions.invoke('cdr-extract', {
+        body: { document_id: documentId },
+    });
+    if (error) {
+        const payload = data as { error?: string } | null;
+        throw new Error(payload?.error || error.message || 'Falha na extração.');
+    }
+    const payload = data as { error?: string; status?: string } | null;
+    if (payload?.error) throw new Error(payload.error);
+}
+
 export async function listDocuments(representativeId: string): Promise<CdrDocument[]> {
     const { data, error } = await supabase
         .from('cdr_documents')

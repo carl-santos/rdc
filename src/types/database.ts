@@ -944,6 +944,61 @@ export type Database = {
           },
         ]
       }
+      cdr_document_chunks: {
+        Row: {
+          id: string
+          tenant_id: string
+          document_id: string
+          representative_id: string
+          chunk_index: number
+          content: string
+          search_vector: unknown
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          document_id: string
+          representative_id: string
+          chunk_index: number
+          content: string
+          search_vector?: unknown
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          document_id?: string
+          representative_id?: string
+          chunk_index?: number
+          content?: string
+          search_vector?: unknown
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cdr_document_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "cdr_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cdr_document_chunks_representative_id_fkey"
+            columns: ["representative_id"]
+            isOneToOne: false
+            referencedRelation: "digital_representatives"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cdr_document_chunks_tenant_id_fkey"
+            columns: ["tenant_id"]
+            isOneToOne: false
+            referencedRelation: "tenants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cdr_conversations: {
         Row: {
           id: string
@@ -1078,6 +1133,18 @@ export type Database = {
           helpful_no: number
           match_strategy: string
           rank: number
+        }[]
+      }
+      search_cdr_knowledge: {
+        Args: {
+          p_representative_id: string
+          p_query: string
+          p_limit?: number
+        }
+        Returns: {
+          file_name: string
+          content: string
+          match_rank: number
         }[]
       }
       vote_faq_article: { Args: { p_article_id: string; p_helpful: boolean }; Returns: undefined }

@@ -72,3 +72,4 @@ verify_jwt = false
 
 # Chat do Representante Digital Cognitivo. Autorizacao interna (JWT + papel + posse).
 # [functions.cdr-chat] assume verify_jwt = true (padrao).
+# [functions.cdr-extract] assume verify_jwt = true (padrao).

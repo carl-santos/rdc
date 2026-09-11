@@ -9,6 +9,7 @@ export type CdrMessage = Database['public']['Tables']['cdr_messages']['Row'];
 export type CdrAutonomy = 'supervised' | 'assisted' | 'autonomous';
 export type CdrSessionMode = 'chat' | 'presentation' | 'class' | 'meeting';
 export type CdrDocumentStatus = 'pending' | 'ready' | 'failed';
+export type { CdrSource } from '../utils/cdrKnowledge';
 
 export const AUTONOMY_LABELS: Record<CdrAutonomy, string> = {
     supervised: 'Supervisionado',

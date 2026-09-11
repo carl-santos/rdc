@@ -14,10 +14,10 @@ const RequestSchema = z.object({
     metadata:      z.record(z.unknown()).optional(),
 }).passthrough();
 
-const SITE_URL = Deno.env.get('SITE_URL') || 'http://localhost:5173';
+const SITE_URL = Deno.env.get('SITE_URL') || 'http://localhost:3000';
 const IS_DEV = SITE_URL.startsWith('http://localhost') || SITE_URL.includes('127.0.0.1');
 const ALLOWED_ORIGINS = IS_DEV
-    ? [SITE_URL, 'http://localhost:5173', 'http://localhost:5174']
+    ? [SITE_URL, 'http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174']
     : [SITE_URL];
 
 function getCors(origin: string | null) {

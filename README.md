@@ -28,15 +28,23 @@ com videoconferência e participação autônoma em reuniões.
 instruções éticas e nível de autonomia (supervisionado, assistido, autônomo).
 
 **Base de conhecimento.** Upload privado no Storage (`cdr-documents`). Textos
-(`.txt`, `.md`, `.csv`) entram no contexto do chat na hora; PDF/Office ficam
-armazenados para extração nas próximas sprints.
+(`.txt`, `.md`, `.csv`) são extraídos no navegador; PDF, DOCX e PPTX passam pela
+Edge Function `cdr-extract`. Arquivos `.doc`/`.ppt` antigos pedem conversão.
+Quando o texto fica pronto, um trigger parte o conteúdo em `cdr_document_chunks`
+e indexa full-text em português.
 
-**Chat e modos.** A Edge Function `cdr-chat` monta o prompt com o material
-autorizado e o modo (chat, apresentação, aula, reunião), consome a cota de
-operações e grava a conversa.
+**Chat e modos.** A Edge Function `cdr-chat` busca os trechos mais relevantes
+com `search_cdr_knowledge`, aplica um formato de saída distinto por modo
+(chat, roteiro de apresentação, aula didática, síntese de reunião), consome a
+cota de operações e grava a conversa. A resposta traz as **fontes** usadas
+(arquivo e trecho), persistidas em `cdr_messages.metadata`. Na interface, cada
+modo tem atalhos, placeholder e aparência próprios. A sessão pode ser
+**exportada** em Markdown (roteiro, plano de aula, minuta ou registro), com as
+fontes no final. Se a busca não achar trechos, volta ao texto concatenado.
 
 **Histórico e auditoria.** Conversas ficam em `cdr_conversations` /
-`cdr_messages`. Eventos do produto usam a categoria `cdr` na trilha de auditoria.
+`cdr_messages`. O histórico reabre a sessão ou exporta o artefato. Eventos do
+produto usam a categoria `cdr` na trilha de auditoria.
 
 ## O que já vinha da fundação
 
@@ -109,7 +117,8 @@ Project Settings → API. Os secrets das Edge Functions não vão em arquivo: s�
 configurados em Project Settings → Edge Functions → Secrets. Para o chat do RDC:
 
 - `ANTHROPIC_API_KEY`
-- `ANTHROPIC_MODEL` (opcional)
+- `ANTHROPIC_WORKSPACE_ID` (obrigatório se a chave não for de um workspace)
+- `ANTHROPIC_MODEL` (opcional; tenta `claude-sonnet-4-5` e outros se o ID não existir)
 
 ### 4. Rodar
 
@@ -163,7 +172,8 @@ supabase functions deploy
 
 `asaas-webhook` e `csp-report` são públicas por definição (`verify_jwt = false`
 em `supabase/config.toml`); ambas validam a origem por conta própria. O
-`cdr-chat` exige JWT e checa papel, posse do representante e cota.
+`cdr-chat` exige JWT e checa papel, posse do representante e cota. O prompt
+usa trechos recuperados por `search_cdr_knowledge`.
 
 ## Comandos
 
